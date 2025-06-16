@@ -43,7 +43,8 @@ export const signup= async (req,res)=>{
 }
 export const signout = (req, res) => {
     try {
-        if (!req.cookies.JWT) {
+        const token = req.cookies.JWT;
+        if (!token) {
             return res.status(400).json({ message: 'User not logged in' });
         }
         res.cookie('JWT', '', { maxAge: 1 });

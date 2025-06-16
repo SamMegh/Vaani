@@ -3,6 +3,7 @@ import messageroute from './route/message.route.js';
 import authroute from './route/auth.route.js';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import cookieParser from 'cookie-parser'
 dotenv.config();
 
 
@@ -10,7 +11,7 @@ const app=express();
 const Port=process.env.Port;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(cookieParser());
 app.use(cors({
   origin: process.env.CLIENTNAME,
   credentials: true
