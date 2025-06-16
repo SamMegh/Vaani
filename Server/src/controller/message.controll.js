@@ -1,6 +1,5 @@
 import { chatcomplete } from "../model/chatAi.model.js";
-
-
+    
 
 export const getChatRoom = (req, res) => {
     try {

@@ -1,5 +1,6 @@
 import express from 'express';
 import messageroute from './route/message.route.js';
+import authroute from './route/auth.route.js';
 import dotenv from 'dotenv';
 import cors from 'cors';
 dotenv.config();
@@ -18,7 +19,8 @@ app.use(cors({
 app.get('/', async(req,res)=>{
  res.send("server is working");
 });
-app.use('/chat', messageroute )
+app.use('/chat', messageroute );
+app.use('/auth', authroute);
 
 app.listen(
     Port,()=>{
