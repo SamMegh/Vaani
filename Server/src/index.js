@@ -1,7 +1,7 @@
-import express from 'express'
-import messageroute from './route/message.route.js'
-import dotenv from 'dotenv'
-
+import express from 'express';
+import messageroute from './route/message.route.js';
+import dotenv from 'dotenv';
+import cors from 'cors';
 dotenv.config();
 
 
@@ -10,7 +10,11 @@ const Port=process.env.Port;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const message=[{ role: "user", content: "Let's see, write a single paragraph-long poem for me." }];
+app.use(cors({
+  origin: process.env.CLIENTNAME,
+  credentials: true
+}));
+
 app.get('/', async(req,res)=>{
  res.send("server is working");
 });
