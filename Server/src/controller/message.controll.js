@@ -43,6 +43,27 @@ res.status(200).json("chat room cratead "+messageroomRef.id);
     }
 }
 
+export const getChatRoom=async(req,res)=>{
+    try {
+        const userId=req.user.uid;
+        const chatroomsref=await db.collection("MessageRooms").where("participantId","array-contains",userId).get();
+        const chatrooms = chatroomsref.docs.map(doc => {
+            const data = doc.data();
+  return{
+  ...data,
+  createdAt: data.createdAt?.toDate() || null,}
+});
+        console.log(chatrooms)
+        res.status(200).json(chatrooms);
+        
+    } catch (error) {
+         res.status(500).json({
+      error: 'Something went wrong while getting the chat.',
+      details: error.message,
+    });
+    }
+}
+
 export const getChat = async (req, res) => {
   try {
     const {roomId} = req.body;
@@ -56,15 +77,16 @@ export const getChat = async (req, res) => {
       .orderBy('createdAt', 'desc')
       .get();
 
-    const msg = msgsnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
+    const msg = msgsnapshot.docs.map((doc) => {
+     const data = doc.data();
+  return{
+  ...data,
+  createdAt: data.createdAt?.toDate() || null,}
+    });
 
     console.log(msg);
     res.status(200).json(msg); // ✅ send the response
   } catch (error) {
-    console.error("Error fetching chat:", error);
     res.status(500).json({
       error: 'Something went wrong while getting the chat.',
       details: error.message,
