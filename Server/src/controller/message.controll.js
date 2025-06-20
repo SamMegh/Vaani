@@ -2,6 +2,7 @@ import { chatcomplete } from "../model/chatAi.model.js";
 import db from "../config/firebase.db.Config.js";
 import { text } from "express";
 import admin from 'firebase-admin'; 
+
 const newmessage = async(senderId,prompt, rool, roomId) => {
      try {
         if (!text || !senderId|| !roomId) {
@@ -42,16 +43,34 @@ res.status(200).json("chat room cratead "+messageroomRef.id);
     }
 }
 
-
-export const getChat = (req, res) => {
-    try {
-        const roomId=req.body;
-
-    } catch {
-        res.status(500).json('somthing went wronge while getting the chat '+ error)
+export const getChat = async (req, res) => {
+  try {
+    const {roomId} = req.body;
+     if (!roomId) {
+      return res.status(400).json({ error: 'roomId is required' });
     }
-}
+    const msgsnapshot = await db
+      .collection('MessageRooms')
+      .doc(roomId)
+      .collection('Messages')
+      .orderBy('createdAt', 'desc')
+      .get();
 
+    const msg = msgsnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    console.log(msg);
+    res.status(200).json(msg); // ✅ send the response
+  } catch (error) {
+    console.error("Error fetching chat:", error);
+    res.status(500).json({
+      error: 'Something went wrong while getting the chat.',
+      details: error.message,
+    });
+  }
+};
 
 export const sendChat = async (req, res) => {
     try {

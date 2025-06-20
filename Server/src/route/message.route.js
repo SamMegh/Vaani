@@ -5,7 +5,7 @@ import { protection } from '../midlayer/protect.midlayer.js';
 const router = express.Router();
 
 router.get('/newchat', protection, newChat);
-router.get('/getchat', protection, getChat);
+router.post('/getchat', protection, getChat);
 router.post('/sendchat', protection, sendChat);
 
 export default router;
