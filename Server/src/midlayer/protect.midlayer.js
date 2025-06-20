@@ -10,7 +10,8 @@ export const protection= async(req,res, next)=>{
         if(!decode){
              return res.status(401).json({message: "unauthroized access: invalid token provided"});
         }
-        req.user=decode;
+        req.user={}
+        req.user.uid=decode.localId;
         next();
     } catch (error) {
         res.status(500).json({message: "internal server error"+error});

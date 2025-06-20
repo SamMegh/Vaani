@@ -1,36 +1,74 @@
 import { chatcomplete } from "../model/chatAi.model.js";
-    
+import db from "../config/firebase.db.Config.js";
+import { text } from "express";
+import admin from 'firebase-admin'; 
+const newmessage = async(senderId,prompt, rool, roomId) => {
+     try {
+        if (!text || !senderId|| !roomId) {
+            return res.status(400).json({ message: 'Message text, RoomId and sender ID are required' });
+        }
+        const createdAt = admin.firestore.FieldValue.serverTimestamp();
+        const messageData = {
+            prompt,
+            senderId,
+            rool,
+            createdAt,
+        };
 
-export const getChatRoom = (req, res) => {
+        const messageRef = await db
+            .collection('MessageRooms').doc(roomId)
+            .collection('Messages')
+            .add(messageData);
+
+        return({ message: 'Message sent', messageId: messageRef.id });
+    } catch (error) {
+        return({ message: 'Error sending message', error: error.message });
+    }
+}
+
+export const newChat=async(req, res)=>{
+    const owner = req.user.uid;
+    const createdAt = admin.firestore.FieldValue.serverTimestamp();
     try {
-        res.status(200).json("chatrooms");
-    } catch {
-        res.status(500).json('somthing went wronge')
+        const messageroomRef =  await db.collection('MessageRooms').add({
+        owner,
+        participantId:[owner],
+        participantName:[owner],
+        createdAt,
+    });
+res.status(200).json("chat room cratead "+messageroomRef.id);
+    } catch (error) {
+        res.status(500).json("error while creating new chat"+ error);
     }
 }
 
 
 export const getChat = (req, res) => {
     try {
-        res.status(200).json("chat");
+        const roomId=req.body;
+
     } catch {
-        res.status(500).json('somthing went wronge')
+        res.status(500).json('somthing went wronge while getting the chat '+ error)
     }
 }
 
 
 export const sendChat = async (req, res) => {
     try {
-        const {prompt}= req.body;
-        if(!prompt){
+        const {prompt,roomId } = req.body;
+        if (!prompt) {
             return res.status(400).json({ error: "Prompt is required" });
         };
-        const result= await chatcomplete(prompt);
+        const isDone=await newmessage(req.user.uid,prompt,"user",roomId);
+    if(isDone){
+        const result = await chatcomplete(prompt);
 
+        await newmessage("AssitantReplyGroq",result,"assistant",roomId);
 
-        res.status(200).json(result);
+        return res.status(200).json(result);}
+        return res.status(401).json({ message: 'error while creating new message'});
     } catch (error) {
         console.error("An error occurred:", error);
-        res.status(500).json({ message: 'Something went wrong' });
+        res.status(500).json({ message: 'Something went wrong' +error});
     }
 }
