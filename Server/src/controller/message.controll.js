@@ -94,6 +94,33 @@ export const getChat = async (req, res) => {
   }
 };
 
+export const shareChat= async (req, res)=>{
+try {
+    const {roomId, newUserId}=req.body;
+    if(!roomId||!newUserId){
+        return res.status(400).json("user id and room id required");
+    }
+    const currentUser=req.user.uid;
+    const roomref= await db.collection("MessageRooms").doc(roomId);
+    const roomrefdata= await roomref.get();
+    if(!roomrefdata.exists){
+         return res.status(400).json("invalid room id");
+    }
+    const roomdata= await roomrefdata.data();
+    if(roomdata.owner!==currentUser){
+         return res.status(401).json("only admin can add new memmbers");
+    }
+    await roomref.update({
+    participantId: admin.firestore.FieldValue.arrayUnion(newUserId),
+    });
+    res.status(200).json("new user added");
+} catch (error) {
+        console.error("An error occurred:", error);
+        res.status(500).json({ message: 'Something went wrong' +error});
+}
+}
+
+
 export const sendChat = async (req, res) => {
     try {
         const {prompt,roomId } = req.body;
