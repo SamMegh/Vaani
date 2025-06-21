@@ -1,42 +1,66 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* Login */
+
+body {
+  background-color: hsl(0, 100%, 91%);
+  font-family: 'Orbitron', sans-serif;
+}
+
+.Login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.Login-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 10px 10px 10px #a3b1c6, -10px -10px 10px #fff0f0;
+  /* box-shadow: inset 10px 20px 10px #a3b1c6, inset -10px -20px 10px #ffffff; */
+  width: 25%;
+  height: 40%;
+}
+
+.Login-title {
   text-align: center;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  font-family: 'Orbitron', sans-serif;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.Login-input {
+  width: 80%;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 20px;
+  border: none;
+  font-family: 'Orbitron', sans-serif;
+  box-shadow: 10px 10px 10px #d1e3fd, -10px -10px 10px #fff0f0;
+
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.Login-input:focus {
+  outline: none;
+  box-shadow: inset 0 0 5px #f0c7ff, inset 0 0 5px #ffcfcf;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.Login-button {
+  width: 30%;
+  padding: 15px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  font-family: 'Orbitron', sans-serif;
+  background-color: white;
+  color: rgb(0, 0, 0);
+  box-shadow: 10px 10px 10px #d1e3fd, -10px -10px 10px #fff0f0;
 }
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+.Login-button:hover {
+  background-color: #ffd3d3;
 }
