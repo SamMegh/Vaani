@@ -1,66 +1,139 @@
-/* Login */
+   @font-face {
+            font-family: 'AlphaWood';
+            src: url('AlphaWood.ttf') format('truetype');
+        }
 
-body {
-  background-color: hsl(0, 100%, 91%);
-  font-family: 'Orbitron', sans-serif;
-}
 
-.Login {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
+        * {
+            font-family: 'AlphaWood', sans-serif;
+        }
 
-.Login-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 10px 10px 10px #a3b1c6, -10px -10px 10px #fff0f0;
-  /* box-shadow: inset 10px 20px 10px #a3b1c6, inset -10px -20px 10px #ffffff; */
-  width: 25%;
-  height: 40%;
-}
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: hsl(0, 100%, 91%);
 
-.Login-title {
-  text-align: center;
-  margin-bottom: 20px;
-  text-transform: uppercase;
-  font-family: 'Orbitron', sans-serif;
-}
+        }
 
-.Login-input {
-  width: 80%;
-  padding: 15px;
-  margin-bottom: 10px;
-  border-radius: 20px;
-  border: none;
-  font-family: 'Orbitron', sans-serif;
-  box-shadow: 10px 10px 10px #d1e3fd, -10px -10px 10px #fff0f0;
+        .Login {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+        }
 
-}
+        .Login-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 10px 10px 10px #a3b1c6, -10px -10px 10px #fff0f0;
+            width: 25%;
+            height: 45%;
+        }
 
-.Login-input:focus {
-  outline: none;
-  box-shadow: inset 0 0 5px #f0c7ff, inset 0 0 5px #ffcfcf;
-}
+        /* .Login-card:hover {
 
-.Login-button {
-  width: 30%;
-  padding: 15px;
-  border-radius: 20px;
-  border: none;
-  cursor: pointer;
-  font-family: 'Orbitron', sans-serif;
-  background-color: white;
-  color: rgb(0, 0, 0);
-  box-shadow: 10px 10px 10px #d1e3fd, -10px -10px 10px #fff0f0;
-}
+        } */
 
-.Login-button:hover {
-  background-color: #ffd3d3;
-}
+        .Login-title {
+            text-align: center;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+
+            font-size: 2.5rem;
+
+        }
+
+        .Login-input {
+            width: 80%;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 20px;
+            border: none;
+            box-shadow: 10px 10px 10px #d1e3fd, -10px -10px 10px #fff0f0;
+
+            font-size: 1.2rem;
+        }
+
+        .Login-input:focus {
+            outline: none;
+            box-shadow: inset 0 0 5px #f0c7ff, inset 0 0 5px #ffcfcf;
+        }
+
+        .Login-button {
+            width: 30%;
+            padding: 15px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            background-color: white;
+            color: rgb(0, 0, 0);
+            box-shadow: 10px 10px 10px #d1e3fd, -10px -10px 10px #fff0f0;
+
+            font-size: 1.2rem;
+        }
+
+        .Login-button:hover {
+            background-color: #ffd3d3;
+        }
+
+
+        .google-login {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 100%;
+            border: 2px solid #d1e3fd;
+            box-shadow: 10px 10px 10px #d1e3fd, -10px -10px 10px #fff0f0;
+
+            margin: 20px auto;
+        }
+
+        .google-logo {
+            width: 60px;
+            height: 60px;
+
+        }
+
+        .highlight {
+            color: #ff0000;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        @media screen and (max-width: 1025px) {
+            .Login-card {
+                width: 60%;
+                height: 50%;
+            }
+
+            .Login-input {
+                width: 80%;
+            }
+
+            .Login-button {
+                width: 40%;
+            }
+
+        }
+
+        @media screen and (max-width: 650px) {
+            .Login-card {
+                width: 85%;
+                height: 50%;
+            }
+
+            .Login-input {
+                width: 85%;
+            }
+
+            .Login-button {
+                width: 40%;
+            }
+
+        }
