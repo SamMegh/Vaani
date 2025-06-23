@@ -1,147 +1,268 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
 
- @font-face {
-            font-family: 'AlphaWood';
-            src: url('AlphaWood.ttf') format('truetype');
-        }
+@font-face {
+  font-family: 'AlphaWood';
+  src: url('AlphaWood.ttf') format('truetype');
+}
 
-        * {
-            font-family: 'Orbitron', sans-serif;
-        }
+* {
+  font-family: 'Orbitron', sans-serif;
+}
 
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: hsl(0, 100%, 91%);
+body {
+  margin: 0;
+  padding: 0;
+  background-color: hsl(0, 100%, 91%);
 
-        }
+}
 
-        .Login {
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            align-items: center;
-            height: 100vh;
-        }
+.Login {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+}
 
-        .Login-card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-around;
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 10px 10px 10px #a3b1c6, -10px -10px 10px #fff0f0;
-            width: 25%;
-            height: 45%;
-        }
+.Login-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 10px 10px 10px #a3b1c6, -10px -10px 10px #fff0f0;
+  width: 25%;
+  height: 45%;
+}
 
-        /* .Login-card:hover {
+/* .Login-card:hover {
 
         } */
 
-        .Login-title {
-            text-align: center;
-            margin-bottom: 20px;
-            text-transform: uppercase;
+.Login-title {
+  text-align: center;
+  margin-bottom: 20px;
+  text-transform: uppercase;
   font-family: 'AlphaWood';
   letter-spacing: 4px;
-            font-size: 2.5rem;
+  font-size: 2.5rem;
 
-        }
+}
 
-        .Login-input {
-            width: 80%;
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 20px;
-            border: none;
-            box-shadow: 10px 10px 10px #d1e3fd, -10px -10px 10px #fff0f0;
-font-weight: 200;
-            font-size: 1.0rem;
-        }
+.Login-input {
+  width: 80%;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 20px;
+  border: none;
+  box-shadow: 10px 10px 10px #d1e3fd, -10px -10px 10px #fff0f0;
+  font-weight: 200;
+  font-size: 1.0rem;
+}
 
-        .Login-input:focus {
-            outline: none;
-            box-shadow: inset 0 0 5px #f0c7ff, inset 0 0 5px #ffcfcf;
-        }
+.Login-input:focus {
+  outline: none;
+  box-shadow: inset 0 0 5px #f0c7ff, inset 0 0 5px #ffcfcf;
+}
 
-        .Login-button {
-            width: 30%;
-            padding: 15px;
-            border-radius: 20px;
-            border: none;
-            cursor: pointer;
-            background-color: white;
-            color: rgb(0, 0, 0);
-            box-shadow: 10px 10px 10px #d1e3fd, -10px -10px 10px #fff0f0;
+.Login-button {
+  width: 30%;
+  padding: 15px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  background-color: white;
+  color: rgb(0, 0, 0);
+  box-shadow: 10px 10px 10px #d1e3fd, -10px -10px 10px #fff0f0;
 
-            font-size: 1.2rem;
-        }
+  font-size: 1.2rem;
+}
 
-        .Login-button:hover {
-            background-color: #ffd3d3;
-        }
+.Login-button:hover {
+  background-color: #ffd3d3;
+}
 
 
-        .google-login {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 100%;
-            border: 2px solid #d1e3fd;
-            box-shadow: 10px 10px 10px #d1e3fd, -10px -10px 10px #fff0f0;
+.google-login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  border: 2px solid #d1e3fd;
+  box-shadow: 10px 10px 10px #d1e3fd, -10px -10px 10px #fff0f0;
 
-            margin: 20px auto;
-        }
+  margin: 20px auto;
+}
 
-        .google-logo {
-            width: 60px;
-            height: 60px;
-            cursor: pointer;
+.google-logo {
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
 
-        }
-        .google-logo:hover {
-            transform: scale(1.5);
-            transition: transform 0.5s linear;
-            
-        }
+}
 
-        .highlight {
-            color: #ff0000;
-            font-weight: bold;
-            cursor: pointer;
-        }
+.google-logo:hover {
+  transform: scale(1.5);
+  transition: transform 0.5s linear;
 
-        @media screen and (max-width: 1025px) {
-            .Login-card {
-                width: 60%;
-                height: 50%;
-            }
+}
 
-            .Login-input {
-                width: 80%;
-            }
+.highlight {
+  color: #ff0000;
+  font-weight: bold;
+  cursor: pointer;
+}
 
-            .Login-button {
-                width: 40%;
-            }
+@media screen and (max-width: 1025px) {
+  .Login-card {
+    width: 60%;
+    height: 50%;
+  }
 
-        }
+  .Login-input {
+    width: 80%;
+  }
 
-        @media screen and (max-width: 650px) {
-            .Login-card {
-                width: 85%;
-                height: 50%;
-            }
+  .Login-button {
+    width: 40%;
+  }
 
-            .Login-input {
-                width: 85%;
-            }
+}
 
-            .Login-button {
-                width: 40%;
-            }
+@media screen and (max-width: 650px) {
+  .Login-card {
+    width: 85%;
+    height: 50%;
+  }
 
-        }
+  .Login-input {
+    width: 85%;
+  }
+
+  .Login-button {
+    width: 40%;
+  }
+
+}
+
+
+
+
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  width: 6vw;
+  margin-left: 0.1%;
+  /* background-color: #ffffff;\\\\\\\\\\\\\/ */
+  color: rgb(0, 0, 0);
+  overflow: hidden;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.navbar-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: auto;
+}
+
+.navbar-logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  box-shadow: 3px 3px 3px #a3b1c6, -3px -3px 3px #fff0f0;
+}
+
+.user-logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-bottom: 6px;
+}
+
+.navbar-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  padding: 0;
+  width: 60px;
+  height: 75%;
+  border-radius: 50px;
+  padding-top: 40px;
+  box-shadow: 3px 3px 3px #a3b1c6, -3px -3px 3px #fff0f0;
+  background-color: white;
+  margin-top: 30px;
+  margin-bottom: auto;
+
+}
+
+.navbar-list .item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  height: auto;
+
+}
+
+.navbar-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  border: 1px solid rgb(0, 0, 0);
+}
+
+.sating {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.margin {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+@media screen and (max-width: 1025px) {
+  .navbar {
+    width: 10vw;
+    margin-left: 0.61%;
+    /* background-color: aquamarine; */
+
+  }
+
+  .navbar-list {
+    width: 80px;
+    height: 70%;
+    padding-top: 30px;
+  }
+
+  .navbar-item {
+    width: 60px;
+    height: 60px;
+  }
+
+  .user-logo {
+    width: 60px;
+    height: 60px;
+  }
+
+  .navbar-logo {
+    width: 75px;
+    height: 75px;
+  }
+
+}
