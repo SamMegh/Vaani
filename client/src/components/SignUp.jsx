@@ -22,6 +22,7 @@ const SignUp = () => {
         <div className="google-login">
             <img className="google-logo" src="https://img.icons8.com/?size=100&id=110560&format=png&color=000000"
                 alt="Google Logo"></img>
+                
         </div>
     </div>
   )
