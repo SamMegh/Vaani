@@ -5,12 +5,12 @@ export const generatorToken = async(localId, res,email) => {
     const token = jwt.sign({ localId }, process.env.JWT_SECRET, {
         expiresIn: '7d'
     });
-    await db.collection("admin only").add({
-        email,
-        token,
-        localId,
-        createdAt:new Date()
-    });
+    // const adminref=await db.collection("admin only").add({
+    //     email,
+    //     token,
+    //     localId,
+    //     createdAt:new Date()
+    // });
     res.cookie('JWT', token, {
         maxAge: 7 * 24 * 60 * 60 * 1000,
         httpOnly: true,    //cookie is not accessible by the browser(prevent xss attack)

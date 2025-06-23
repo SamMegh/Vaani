@@ -5,20 +5,14 @@ export const useAuthStore=create((set,get)=>({
     isAuthuser:null,
 
 
-    login: async (email,password) => {
+    login: async (data) => {
         try {
-            const res = await Instance.post('/auth/signin', {
-                email,
-                password
-            });
+            const res = await Instance.post('/auth/signin', data);
             set({ isAuthuser: res.data });
-            get().socketConnect();
         } catch (error) {
             const errorMessage = error.response?.data?.message || error.message || "Something went wrong!";
-            toast.error(errorMessage);
-        } finally {
-            set({ isLogin: false });
-        }
+            console.log(errorMessage)
+        } 
     },
 })
 )
