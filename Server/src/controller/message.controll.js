@@ -120,7 +120,6 @@ try {
 }
 }
 
-
 export const sendChat = async (req, res) => {
     try {
         const {prompt,roomId } = req.body;

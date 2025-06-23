@@ -10,7 +10,7 @@ export const useChatStore = create((set, get) => ({
 
   sendMessage:async(msg)=>{
     const addMessage=get().addMessage;
-    const res= await Instance.post('/sendchat', {
+    const res= await Instance.post('/chat/sendchat', {
   prompt: msg
 });
 console.log(res.data);

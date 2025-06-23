@@ -14,7 +14,7 @@ export const signin= async(req,res)=>{
         if(!userData){
             return res.status(400).json({ message: 'Invalid email or password' });
         }
-        generatorToken(userData.user.uid,res);
+        generatorToken(userData.user.uid,res,email);
         res.status(200).json(userData);
     } catch (error) {
         res.status(500).json(error);
@@ -35,12 +35,13 @@ export const signup= async (req,res)=>{
         if(!userData){
             return res.status(400).json({ message: 'Invalid email or password' });
         }
-        generatorToken(userData.user.uid,res);
+        generatorToken(userData.user.uid,res,email);
         res.status(200).json({userData});
     } catch (error) {
         res.status(500).json(error);
     }
 }
+
 export const signout = (req, res) => {
     try {
         const token = req.cookies.JWT;
