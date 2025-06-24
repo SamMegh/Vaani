@@ -1,7 +1,4 @@
-import { useState } from "react";
-import CustomInputBox from "./customInputBox";
-import ListOfMessages from "./listOfMessages";
-import CustomButton from "./customButton";
+import { useEffect, useState } from "react";
 import { useChatStore } from "../store/useChatStore.jsx";
 import { useAuthStore } from "../store/useAuthStore.jsx";
 
@@ -21,19 +18,20 @@ getMessage();
   },[])
   return (
     <div className='chat-main'>
-      <div className="massege-body">
-      <h1 className="chat-title">list of messages are </h1>
 
-      <ul>
+      <h1>list of messages are </h1>
+
+      <ul >
         {messages.map((msg, index) => (
-          <li
+          <li className={msg.senderId==myId?"itsMeClass":(msg.senderId=="AssitantReplyGroq")?"assistantclass":"otherUserClass"}
             key={msg.id || index}
           >
-            <strong>{msg.role}:</strong> {msg.content}
+            <strong>{msg.rool}:</strong> {msg.prompt}
           </li>
         ))}
       </ul>
 
+      <h1>result</h1>
 
       <input
         type="text"
