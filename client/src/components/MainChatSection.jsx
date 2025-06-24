@@ -1,34 +1,38 @@
 import { useState } from "react";
+import CustomInputBox from "./customInputBox";
+import ListOfMessages from "./listOfMessages";
+import CustomButton from "./customButton";
 import { useChatStore } from "../store/useChatStore.jsx";
+import { useAuthStore } from "../store/useAuthStore.jsx";
 
 const MainChatSection = () => {
-  const { messages } = useChatStore();
-
+  const { messages,addMessage, sendMessage,getMessage } = useChatStore();
+  const {isAuthuser}=useAuthStore();
+  const myId=isAuthuser.uid;
   const [msg, setMsg] = useState("");
-  const { addMessage, sendMessage } = useChatStore();
   const handleSend = () => {
-    if (msg.trim) {
-      addMessage({ role: 'user', content: msg });
-      sendMessage(msg);
-    }
+    // if (msg.trim) {
+    //   addMessage({ role: 'user', content: msg });
+    //   sendMessage(msg);
+    // }
   };
+  useEffect(()=>{
+getMessage();
+  },[])
   return (
     <div className='chat-main'>
       <div className="massege-body">
       <h1 className="chat-title">list of messages are </h1>
 
-        <ul>
-          {messages.map((msg, index) => (
-            <div className={msg.role == "user" ? "userclass" : "assistanclass"}
-              key={msg.id || index}
-            >
-              <strong>{msg.role}:</strong> {msg.content}
-
-            </div>
-          ))}
-        </ul>
-      </div>
-
+      <ul>
+        {messages.map((msg, index) => (
+          <li
+            key={msg.id || index}
+          >
+            <strong>{msg.role}:</strong> {msg.content}
+          </li>
+        ))}
+      </ul>
 
 
 

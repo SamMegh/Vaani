@@ -9,7 +9,6 @@ import { useEffect } from "react";
 
 function App() {
   const { isAuthuser,checkauth,isCheckauth } = useAuthStore();
-  console.log(isAuthuser);
 
     useEffect(() => {
     checkauth();

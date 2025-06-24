@@ -28,6 +28,17 @@ body {
   flex-direction: row;
 
 }
+.itsMeClass{
+  background-color: #ff0000;
+}
+.assistantclass{
+  width: 200px;
+  background-color: blue;
+}
+.otherUserClass{
+  width: 200px;
+  background-color: green;
+}
 
 .chat-main {
   display: flex;

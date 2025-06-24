@@ -3,8 +3,11 @@ import Instance from "../lib/axios";
 export const useAuthStore = create((set, get) => ({
   isAuthuser: null,
   isCheckauth:false,
-
+  isSignout:false,
+  isLogin:false,
+  isSignup:false,
   login: async (data) => {
+    set({isLogin:true});
     try {
       const res = await Instance.post("/auth/signin", data);
       set({ isAuthuser: res.data.user });
@@ -14,10 +17,13 @@ export const useAuthStore = create((set, get) => ({
         error.message ||
         "Something went wrong!";
       console.log(errorMessage);
+    }finally{
+    set({isLogin:false});
     }
   },
 
   signup: async (data) => {
+    set({isSignup:ture})
     try {
       const res = await Instance.post("/auth/signup", data);
       if (res.status === 200) {
@@ -30,12 +36,15 @@ export const useAuthStore = create((set, get) => ({
         error.message ||
         "Something went wrong!";
       console.log(errorMessage);
+    }finally{
+    set({isSignup:false})
     }
   },
 
   signout:async ()=>{
+    set({isSignout:true})
     try {
-        const res=Instance.get("/auth/signout");
+        const res=await Instance.get("/auth/signout");
         if(!res){
           console.log("unable to logout");
           return ;
@@ -48,6 +57,8 @@ export const useAuthStore = create((set, get) => ({
         error.message ||
         "Something went wrong!";
       console.log(errorMessage);
+    }finally{
+    set({isSignout:false})
     }
   },
 
@@ -55,7 +66,6 @@ export const useAuthStore = create((set, get) => ({
     set({isCheckauth:true})
 try {
   const res = await Instance.get("/auth/check");
-  console.log(res.data);
   set({isAuthuser:res.data})
 } catch (error) {
    const errorMessage =

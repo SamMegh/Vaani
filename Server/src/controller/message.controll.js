@@ -53,7 +53,6 @@ export const getChatRoom=async(req,res)=>{
   ...data,
   createdAt: data.createdAt?.toDate() || null,}
 });
-        console.log(chatrooms)
         res.status(200).json(chatrooms);
         
     } catch (error) {
@@ -83,8 +82,6 @@ export const getChat = async (req, res) => {
   ...data,
   createdAt: data.createdAt?.toDate() || null,}
     });
-
-    console.log(msg);
     res.status(200).json(msg); // ✅ send the response
   } catch (error) {
     res.status(500).json({
