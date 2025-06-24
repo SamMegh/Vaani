@@ -3,9 +3,11 @@ import "./App.css";
 import HomeScreen from "./screen/HomeScreen";
 import { useAuthStore } from "./store/useAuthStore";
 import LoginScreen from "./screen/LoginScreen";
+import SignUp from "./screen/SignUpScreen";
 
 function App() {
   const { isAuthuser } = useAuthStore();
+  console.log(isAuthuser);
   return (
     <>
       <BrowserRouter>
@@ -17,6 +19,10 @@ function App() {
           <Route
             path="/login"
             element={!isAuthuser ? <LoginScreen /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/signup"
+            element={!isAuthuser ? <SignUp /> : <Navigate to="/" />}
           />
         </Routes>
       </BrowserRouter>
