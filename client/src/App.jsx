@@ -4,10 +4,21 @@ import HomeScreen from "./screen/HomeScreen";
 import { useAuthStore } from "./store/useAuthStore";
 import LoginScreen from "./screen/LoginScreen";
 import SignUp from "./screen/SignUpScreen";
+import { Loader } from 'lucide-react'
+import { useEffect } from "react";
 
 function App() {
-  const { isAuthuser } = useAuthStore();
+  const { isAuthuser,checkauth,isCheckauth } = useAuthStore();
   console.log(isAuthuser);
+
+    useEffect(() => {
+    checkauth();
+  }, [checkauth]);
+if(isCheckauth&& !isAuthuser)return(
+  <div className='main-loading-icon'>
+    <Loader size={30}/>
+    </div>
+)
   return (
     <>
       <BrowserRouter>
