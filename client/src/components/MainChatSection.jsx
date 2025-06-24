@@ -33,7 +33,6 @@ getMessage();
 
       <h1>result</h1>
 
-
       <input
         type="text"
         value={msg}
