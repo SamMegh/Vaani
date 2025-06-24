@@ -1,7 +1,4 @@
 import { useState } from "react";
-import CustomInputBox from "./customInputBox";
-import ListOfMessages from "./listOfMessages";
-import CustomButton from "./customButton";
 import { useChatStore } from "../store/useChatStore.jsx";
 
 const MainChatSection = () => {
@@ -17,20 +14,22 @@ const MainChatSection = () => {
   };
   return (
     <div className='chat-main'>
+      <div className="massege-body">
+      <h1 className="chat-title">list of messages are </h1>
 
-      <h1>list of messages are </h1>
+        <ul>
+          {messages.map((msg, index) => (
+            <div className={msg.role == "user" ? "userclass" : "assistanclass"}
+              key={msg.id || index}
+            >
+              <strong>{msg.role}:</strong> {msg.content}
 
-      <ul>
-        {messages.map((msg, index) => (
-          <li
-            key={msg.id || index}
-          >
-            <strong>{msg.role}:</strong> {msg.content}
-          </li>
-        ))}
-      </ul>
+            </div>
+          ))}
+        </ul>
+      </div>
 
-      <h1>result</h1>
+
 
 
       <input
