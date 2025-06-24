@@ -1,24 +1,27 @@
-import { useState } from "react";
-import CustomInputBox from "../components/customInputBox";
-import ListOfMessages from "../components/listOfMessages";
-import CustomButton from "../components/customButton";
-import { useChatStore } from "../store/useChatStore";
+
+import NavBar from "../components/navBar";
+import MainChatSection from "../components/MainChatSection";
+import ChatHistory from "../components/ChatHistory";
 function HomeScreen() {
-  const [msg, setMsg] = useState("");
-  const {addMessage,sendMessage}=useChatStore();
-  const handleSend = () => {
-    if (msg.trim) {
-      addMessage({ role: 'user', content: msg });
-      sendMessage(msg);
-    }
-  };
+ 
 
   return (
-    <div>
-      <ListOfMessages />
-      <h1>result</h1>
-      <CustomInputBox input={msg} setInput={setMsg} />
-      <CustomButton onClick={handleSend} />
+    <div className="main-div">
+      <NavBar/>
+      <MainChatSection/>
+      <ChatHistory/>
+
+
+
+
+
+
+
+
+
+
+
+      
     </div>
   );
 }

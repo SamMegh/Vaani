@@ -41,7 +41,6 @@ export const signup= async (req,res)=>{
         res.status(500).json(error);
     }
 }
-
 export const signout = (req, res) => {
     try {
         const token = req.cookies.JWT;
@@ -54,7 +53,6 @@ export const signout = (req, res) => {
         res.status(500).json({ message: 'Internal server error' + error });
     }
 }
-
 export const check=(req,res)=>{
     try{
         res.status(200).json(req.user);

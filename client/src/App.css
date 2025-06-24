@@ -12,8 +12,22 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: hsl(0, 100%, 91%);
+  background-color: rgb(228, 225, 225)
+}
 
+.main-div {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+
+}
+
+.chat-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
 }
 
 .Login {
