@@ -12,7 +12,7 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={isAuthuser ? <HomeScreen /> : <Navigate to="/login" />}
+            element={!isAuthuser ? <HomeScreen /> : <Navigate to="/login" />}
           />
           <Route
             path="/login"

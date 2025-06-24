@@ -2,7 +2,7 @@
 
 @font-face {
   font-family: 'AlphaWood';
-  src: url('AlphaWood.ttf') format('truetype');
+  src: url('../src/assets/Fonts/AlphaWood.ttf') format('truetype');
 }
 
 * {
