@@ -6,15 +6,14 @@ function ListOfMessages() {
   return (
     <div>
       <h1>list of messages are </h1>
-      <ul>
         {messages.map((msg,index)=>(
-            <li
+            <p
             key={msg.id||index}
             >
-                <strong>{msg.role}:</strong> {msg.content}
-            </li>
+                <strong>{msg.role}:</strong><p> {msg.content}</p>
+                {console.log(msg.content)}
+            </p>
         ))}
-      </ul>
     </div>
   )
 }

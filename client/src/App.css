@@ -14,6 +14,12 @@ body {
   padding: 0;
   background-color: rgb(189, 192, 250)
 }
+.main-loading-icon{
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  height: 100vh;
+}
 
 .main-div {
   display: flex;
