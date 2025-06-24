@@ -35,7 +35,6 @@ getMessage();
       </ul>
 
 
-
       <input
         type="text"
         value={msg}
