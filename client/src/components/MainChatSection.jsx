@@ -5,8 +5,10 @@ import CustomButton from "./customButton";
 import { useChatStore } from "../store/useChatStore.jsx";
 
 const MainChatSection = () => {
-     const [msg, setMsg] = useState("");
-  const {addMessage,sendMessage}=useChatStore();
+  const { messages } = useChatStore();
+
+  const [msg, setMsg] = useState("");
+  const { addMessage, sendMessage } = useChatStore();
   const handleSend = () => {
     if (msg.trim) {
       addMessage({ role: 'user', content: msg });
@@ -15,10 +17,30 @@ const MainChatSection = () => {
   };
   return (
     <div className='chat-main'>
-      <ListOfMessages />
+
+      <h1>list of messages are </h1>
+
+      <ul>
+        {messages.map((msg, index) => (
+          <li
+            key={msg.id || index}
+          >
+            <strong>{msg.role}:</strong> {msg.content}
+          </li>
+        ))}
+      </ul>
+
       <h1>result</h1>
-      <CustomInputBox input={msg} setInput={setMsg} />
-      <CustomButton onClick={handleSend} />
+
+
+      <input
+        type="text"
+        value={msg}
+        onChange={(e) => setMsg(e.target.value)}
+        placeholder='Message...'
+      />
+
+      <button onClick={handleSend}>Send</button>
     </div>
   )
 }
