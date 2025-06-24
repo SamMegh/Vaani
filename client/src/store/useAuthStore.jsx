@@ -35,7 +35,12 @@ export const useAuthStore = create((set, get) => ({
 
   signout:async ()=>{
     try {
-        
+        const res=Instance.get("/auth/signout");
+        if(!res){
+          console.log("unable to logout");
+          return ;
+        }
+        set({isAuthuser:null});
     } catch (error) {
         
       const errorMessage =
