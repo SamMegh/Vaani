@@ -1,6 +1,8 @@
 import React from 'react'
-
+import { LogOut } from 'lucide-react';
+import { useAuthStore } from '../store/useAuthStore';
 const NavBar = () => {
+    const {signout}=useAuthStore();
     return (
         <div>
             <nav className="navbar">
@@ -26,7 +28,7 @@ const NavBar = () => {
                         </div>
                     </div>
                     <div className="sating">
-                        <div className="navbar-item">O</div>
+                        <div className="navbar-item" onClick={signout}><LogOut/></div>
                         <img className="user-logo" src="../src/assets/images2/dragon_3.jpg" alt="User Logo" />
                     </div>
                 </div>

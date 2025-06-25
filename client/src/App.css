@@ -247,7 +247,7 @@ body {
   transition: all 0.3s ease;
   box-shadow: 2px 2px 2px #ff0000, -2px -2px 2px #00fbff;
   overflow: hidden;
-  background-image: url('../src/assets/images2/dragon_9.jpg');
+  background-color: green;
   background-size: cover;
 }
 
