@@ -145,6 +145,7 @@ body {
   color: #ff0000;
   font-weight: bold;
   cursor: pointer;
+  text-decoration: none;
 }
 
 @media screen and (max-width: 1025px) {

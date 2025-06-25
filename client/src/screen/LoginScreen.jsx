@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuthStore } from "../store/useAuthStore";
-
+import { Link } from "react-router-dom";
 const LoginScreen = () => {
   const [logindata, setlogindata] = useState({
     email: "",
@@ -40,10 +40,9 @@ const handleLogin = async (e) => {
             Login
           </button>
           {/* <h3 className="highlight">Something went wrong</h3> */}
-          <p>
-            <span className="highlight">Sign in </span> if you have not
-            registered yet
-          </p>
+         <p>
+  <Link to="/signup" className="highlight">Sign up</Link> if you have not registered yet
+</p>
         </form>
 
         <div className="google-login">

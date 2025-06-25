@@ -73,6 +73,7 @@ try {
         error.message ||
         "Something went wrong!";
       console.log(errorMessage);
+      set({isAuthuser:null})
 }finally{
   set({isCheckauth:false})
 }

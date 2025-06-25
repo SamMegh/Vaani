@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import {  useState } from "react";
 import { useAuthStore } from "../store/useAuthStore";
-
+import { Link } from "react-router-dom";
 const SignUpScreen = () => {
   const [signupData, setsignupData] = useState({
     email: "",
     password: "",
   });
-const {signup}=useAuthStore();
+const {signup,isAuthuser}=useAuthStore();
 
   const handleSignUp = async (e) => {
     e.preventDefault(); 
@@ -46,9 +46,9 @@ const {signup}=useAuthStore();
         </button>
         {/* <h3 className="highlight">Something went wrong</h3> */}
         <p>
-          <span className="highlight">Login in </span> if you have already
+  <Link to="/login" className="highlight">Login in </Link> iif you have already
           registered{" "}
-        </p>
+</p>
       </form>
 
       <div className="google-login">
