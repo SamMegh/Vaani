@@ -28,7 +28,7 @@ const NavBar = () => {
                         </div>
                     </div>
                     <div className="sating">
-                        <div className="navbar-item" onClick={signout}><LogOut/></div>
+                        <div className="navbar-item navbar-item-signout" onClick={signout}><LogOut/></div>
                         <img className="user-logo" src="../src/assets/images2/dragon_3.jpg" alt="User Logo" />
                     </div>
                 </div>

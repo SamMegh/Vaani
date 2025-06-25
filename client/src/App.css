@@ -247,10 +247,12 @@ body {
   transition: all 0.3s ease;
   box-shadow: 2px 2px 2px #ff0000, -2px -2px 2px #00fbff;
   overflow: hidden;
-  background-color: green;
+  background-image: url('../src/assets/images2/dragon_9.jpg');
   background-size: cover;
 }
-
+.navbar-item-signout{
+  background: none;
+}
 .navbar-item-logo {
   width: auto;
   height: auto;
