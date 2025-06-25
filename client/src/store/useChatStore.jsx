@@ -2,20 +2,33 @@ import { create } from "zustand";
 import Instance from "../lib/axios";
 export const useChatStore = create((set, get) => ({
   messages: [],
+  currentRoom:null,
+sendMessage: async (msg) => {
+  const {  currentRoom, createMsgCollection } = get();
 
-  addMessage: (msg) => {
-    const messages = get().messages;
-    set({ messages: [...messages, msg] });
-  },
+  try {
+    // If no room exists, create one
+    let roomId = currentRoom;
+    if (!roomId) {
+      await createMsgCollection();
+      roomId = get().currentRoom; 
+    }
 
-  sendMessage: async (msg) => {
-    const addMessage = get().addMessage;
     const res = await Instance.post("/chat/sendchat", {
       prompt: msg,
+      roomId,
     });
-    console.log(res.data);
+
     addMessage({ role: "assistant", content: res.data });
-  },
+  } catch (error) {
+    const errorMessage =
+      error.response?.data?.message ||
+      error.message ||
+      "Something went wrong!";
+    console.log("Error sending message:", errorMessage);
+  }
+},
+
   createChatRoom:async()=>{
     try {
     const res = await Instance.get("/chat/newchatroom");
@@ -42,5 +55,17 @@ export const useChatStore = create((set, get) => ({
       console.log(errorMessage);
     }
 
+  },
+  createMsgCollection:async()=>{
+    try {
+      const res = await Instance.get("/chat/newchatroom");
+      set({currentRoom:res.data});
+    } catch (error) {
+       const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "Something went wrong!";
+      console.log(errorMessage);
+    }
   }
 }));

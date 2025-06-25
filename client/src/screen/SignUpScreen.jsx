@@ -10,7 +10,12 @@ const {signup}=useAuthStore();
 
   const handleSignUp = async (e) => {
     e.preventDefault(); 
-    await signup(signupData);
+    try {
+      await signup(signupData);
+    } catch (error) {
+      console.log(error);
+    }
+    
   };
 
   return (

@@ -23,7 +23,7 @@ export const useAuthStore = create((set, get) => ({
   },
 
   signup: async (data) => {
-    set({isSignup:ture})
+    set({isSignup:true})
     try {
       const res = await Instance.post("/auth/signup", data);
       if (res.status === 200) {

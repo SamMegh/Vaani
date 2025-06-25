@@ -12,7 +12,10 @@ function App() {
 
     useEffect(() => {
     checkauth();
-  }, [checkauth]);
+    if (isAuthuser) {
+    navigate("/"); // or your desired route
+  }
+  }, [checkauth,isAuthuser]);
 if(isCheckauth&& !isAuthuser)return(
   <div className='main-loading-icon'>
     <Loader size={30}/>

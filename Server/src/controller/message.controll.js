@@ -4,6 +4,7 @@ import { text } from "express";
 import admin from 'firebase-admin'; 
 
 const newmessage = async(senderId,prompt, rool, roomId) => {
+    // add message to database
      try {
         if (!text || !senderId|| !roomId) {
             return res.status(400).json({ message: 'Message text, RoomId and sender ID are required' });
@@ -27,7 +28,8 @@ const newmessage = async(senderId,prompt, rool, roomId) => {
     }
 }
 
-export const newChat=async(req, res)=>{
+export const MessageRooms=async(req, res)=>{
+    ///create new message room
     const owner = req.user.uid;
     const createdAt = admin.firestore.FieldValue.serverTimestamp();
     try {
@@ -37,13 +39,15 @@ export const newChat=async(req, res)=>{
         participantName:[owner],
         createdAt,
     });
-res.status(200).json("chat room cratead "+messageroomRef.id);
+res.status(200).json(messageroomRef.id);
     } catch (error) {
         res.status(500).json("error while creating new chat"+ error);
     }
 }
 
 export const getChatRoom=async(req,res)=>{
+// to get all chatroom of the current user
+
     try {
         const userId=req.user.uid;
         const chatroomsref=await db.collection("MessageRooms").where("participantId","array-contains",userId).get();
@@ -64,6 +68,8 @@ export const getChatRoom=async(req,res)=>{
 }
 
 export const getChat = async (req, res) => {
+// to get data of specific chat room 
+
   try {
     const {roomId} = req.body;
      if (!roomId) {
