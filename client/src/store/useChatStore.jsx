@@ -58,7 +58,7 @@ export const useChatStore = create(
       },
       
       sendMessage: async (msg) => {
-        const { currentRoom, createMsgCollection, messages } = get();
+        const { currentRoom, createMsgCollection } = get();
         try {
           let roomId = currentRoom;
           if (!roomId) {
@@ -70,7 +70,9 @@ export const useChatStore = create(
             prompt: msg,
             roomId,
           });
-          set({ messages: [...messages,userres.data] }); // Append both user message
+           set((state) => ({
+      messages: [...state.messages, userres.data],
+    })); // Append both user message
 
           
 
@@ -78,7 +80,9 @@ export const useChatStore = create(
             prompt: msg,
             roomId,
           });
-          set({ messages: [...messages,assisres.data] }); // Append both assistant message
+           set((state) => ({
+      messages: [...state.messages, assisres.data],
+    })); // Append both assistant message
 
 
         } catch (error) {
