@@ -25,7 +25,6 @@ getMessage();
           <li className={msg.senderId==myId?"itsMeClass":(msg.senderId=="AssitantReplyGroq")?"assistantclass":"otherUserClass"}
             key={msg.id || index}
           >
-            {console.log(msg)}
             <strong>{msg.rool}:</strong> {msg.prompt}
           </li>
         ))}
