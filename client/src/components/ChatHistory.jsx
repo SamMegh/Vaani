@@ -2,11 +2,9 @@ import React from 'react'
 
 const ChatHistory = () => {
   return (
-    <div>
-      <div className="user-logo">
+      <div className="chat-history">
         <img src="/" alt="js" />
       </div>
-    </div>
   )
 }
 
