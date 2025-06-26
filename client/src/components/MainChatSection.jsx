@@ -3,19 +3,18 @@ import { useChatStore } from "../store/useChatStore.jsx";
 import { useAuthStore } from "../store/useAuthStore.jsx";
 
 const MainChatSection = () => {
-  const { messages,addMessage, sendMessage,getMessage } = useChatStore();
+  const { messages, sendMessage,getMessage } = useChatStore();
   const {isAuthuser}=useAuthStore();
   const myId=isAuthuser.uid;
   const [msg, setMsg] = useState("");
   const handleSend = () => {
-    // if (msg.trim) {
-    //   addMessage({ role: 'user', content: msg });
-    //   sendMessage(msg);
-    // }
+    if (msg.trim) {
+      sendMessage(msg);
+    }
   };
   useEffect(()=>{
 getMessage();
-  },[])
+  },[getMessage])
   return (
     <div className='chat-main'>
 

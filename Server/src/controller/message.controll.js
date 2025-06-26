@@ -22,7 +22,7 @@ const newmessage = async(senderId,prompt, rool, roomId) => {
             .collection('Messages')
             .add(messageData);
 
-        return({ message: 'Message sent', messageId: messageRef.id });
+        return(messageRef);
     } catch (error) {
         return({ message: 'Error sending message', error: error.message });
     }
@@ -129,13 +129,15 @@ export const sendChat = async (req, res) => {
         if (!prompt) {
             return res.status(400).json({ error: "Prompt is required" });
         };
-        const isDone=await newmessage(req.user.uid,prompt,"user",roomId);
-    if(isDone){
+        const newMsg=[];
+        const userDone=await newmessage(req.user.uid,prompt,"user",roomId);
+        newMsg=[...newMsg,userDone];
+    if(userDone){
         const result = await chatcomplete(prompt);
 
-        await newmessage("AssitantReplyGroq",result,"assistant",roomId);
-
-        return res.status(200).json(result);}
+        const assistantDone=await newmessage("AssitantReplyGroq",result,"assistant",roomId);
+        newMsg=[...newMsg,assistantDone];
+        return res.status(200).json(newMsg);}
         return res.status(401).json({ message: 'error while creating new message'});
     } catch (error) {
         console.error("An error occurred:", error);
