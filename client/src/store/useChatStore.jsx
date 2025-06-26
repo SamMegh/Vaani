@@ -7,7 +7,7 @@ export const useChatStore = create((set, get) => ({
   chatRooms:[],
 
   sendMessage: async (msg) => {
-  const {  currentRoom, createMsgCollection } = get();
+  const {  currentRoom, createMsgCollection,messages } = get();
 
   try {
     // If no room exists, create one
@@ -21,7 +21,7 @@ export const useChatStore = create((set, get) => ({
       prompt: msg,
       roomId,
     });
-    set({messages:[...messages,res.data]});
+    set({ messages: [...messages, ...res.data] });
   } catch (error) {
     const errorMessage =
       error.response?.data?.message ||
@@ -30,7 +30,8 @@ export const useChatStore = create((set, get) => ({
     console.log("Error sending message:", errorMessage);
   }
   },
-getMessage: async () => {
+
+  getMessage: async () => {
   try {
     const { currentRoom } = get();
     const res = await Instance.post("/chat/getchat", { roomId:currentRoom });
@@ -43,8 +44,7 @@ getMessage: async () => {
       "Something went wrong!";
     console.error("Error fetching messages:", errorMessage);
   }
-},
-
+  },
 
   createMsgCollection:async()=>{
     try {
@@ -63,7 +63,7 @@ getMessage: async () => {
   getMessageCollection:async()=>{
     try {
       const res = await Instance.get("/chat/getchatroom");
-
+      set({chatRooms:res.data});
     } catch (error) {
       const errorMessage =
         error.response?.data?.message ||

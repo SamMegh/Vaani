@@ -21,8 +21,9 @@ const newmessage = async(senderId,prompt, rool, roomId) => {
             .collection('MessageRooms').doc(roomId)
             .collection('Messages')
             .add(messageData);
+    const savedMsg = await messageRef.get();
 
-        return(messageRef);
+    return { id: savedMsg.id, ...savedMsg.data() };
     } catch (error) {
         return({ message: 'Error sending message', error: error.message });
     }
@@ -129,7 +130,7 @@ export const sendChat = async (req, res) => {
         if (!prompt) {
             return res.status(400).json({ error: "Prompt is required" });
         };
-        const newMsg=[];
+        let newMsg=[];
         const userDone=await newmessage(req.user.uid,prompt,"user",roomId);
         newMsg=[...newMsg,userDone];
     if(userDone){
