@@ -83,9 +83,10 @@ export const useChatStore = create(
       },
     }),
     {
-      name: "chat-storage",
+      name: "chat-storage", // Key in localStorage
       partialize: (state) => ({
-        currentRoom: state.currentRoom, // Persist currentRoom only
+        currentRoom: state.currentRoom,
+        messages: state.messages,
       }),
     }
   )
