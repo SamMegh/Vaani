@@ -11,31 +11,6 @@ export const useChatStore = create(
 
       setCurrentRoom: (roomId) => set({ currentRoom: roomId }),
 
-      sendMessage: async (msg) => {
-        const { currentRoom, createMsgCollection, messages } = get();
-
-        try {
-          let roomId = currentRoom;
-          if (!roomId) {
-            await createMsgCollection();
-            roomId = get().currentRoom;
-          }
-
-          const res = await Instance.post("/chat/sendchat", {
-            prompt: msg,
-            roomId,
-          });
-
-          set({ messages: [...messages, ...res.data] }); // Append both user & assistant message
-        } catch (error) {
-          const errorMessage =
-            error.response?.data?.message ||
-            error.message ||
-            "Something went wrong!";
-          console.log("Error sending message:", errorMessage);
-        }
-      },
-
       getMessage: async () => {
         const { currentRoom } = get();
 
@@ -81,6 +56,40 @@ export const useChatStore = create(
           console.log(errorMessage);
         }
       },
+      
+      sendMessage: async (msg) => {
+        const { currentRoom, createMsgCollection, messages } = get();
+        try {
+          let roomId = currentRoom;
+          if (!roomId) {
+            await createMsgCollection();
+            roomId = get().currentRoom;
+          }
+
+          const userres = await Instance.post("/chat/addusermessage", {
+            prompt: msg,
+            roomId,
+          });
+          set({ messages: [...messages,userres.data] }); // Append both user message
+
+          
+
+          const assisres = await Instance.post("/chat/sendchat  ", {
+            prompt: msg,
+            roomId,
+          });
+          set({ messages: [...messages,assisres.data] }); // Append both assistant message
+
+
+        } catch (error) {
+          const errorMessage =
+            error.response?.data?.message ||
+            error.message ||
+            "Something went wrong!";
+          console.log("Error sending message:", errorMessage);
+        }
+      },
+
     }),
     {
       name: "chat-storage", // Key in localStorage

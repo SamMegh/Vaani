@@ -81,7 +81,7 @@ export const getChat = async (req, res) => {
             .collection('MessageRooms')
             .doc(roomId)
             .collection('Messages')
-            .orderBy('createdAt', 'desc')
+            .orderBy('createdAt', 'asc')
             .get();
 
         const msg = msgsnapshot.docs.map((doc) => {
@@ -126,33 +126,31 @@ export const shareChat = async (req, res) => {
     }
 }
 
+export const addusermessage= async(req,res)=>{
+    try {
+         const { prompt, roomId } = req.body;
+        if (!prompt||!roomId ) {
+            return res.status(400).json({ error: "Prompt or RoomId is required" });
+        };
+        const userDone = await newmessage(req.user.uid, prompt, "user", roomId);
+        return res.status(200).json(userDone);
+    } catch (error) {
+         console.error("An error occurred:", error);
+        res.status(500).json({ message: 'Something went wrong' + error });
+    }
+}
+
 export const sendChat = async (req, res) => {
     try {
         const { prompt, roomId } = req.body;
-        currentRoom = roomId;
-        if (!prompt) {
-            return res.status(400).json({ error: "Prompt is required" });
+        if (!prompt||!roomId ) {
+            return res.status(400).json({ error: "Prompt or RoomId is required" });
         };
-        let newMsg = [];
-        const userDone = await newmessage(req.user.uid, prompt, "user", roomId);
-        newMsg = [...newMsg, userDone];
-        if (userDone) {
             const result = await chatcomplete(prompt);
-
             const assistantDone = await newmessage("AssitantReplyGroq", result, "assistant", roomId);
-            newMsg = [...newMsg, assistantDone];
-            return res.status(200).json(newMsg);
-        }
-        return res.status(401).json({ message: 'error while creating new message' });
+            return res.status(200).json(assistantDone);
     } catch (error) {
         console.error("An error occurred:", error);
         res.status(500).json({ message: 'Something went wrong' + error });
     }
 }
-
-export const getCurrentRoom = (req, res) => {
-    if (currentRoom) {
-        return res.status(200).json(currentRoom);
-    }
-}
-let currentRoom = null;
