@@ -5,8 +5,6 @@ import { useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlus,
-  faSlidersH,
-  faMicrophone,
   faWaveSquare,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -58,7 +56,7 @@ const MainChatSection = () => {
 
         <div className="chat-input-wrapper wrapper">
           <FontAwesomeIcon icon={faPlus} className="fas fa-plus styles-icon" />
-          <input type="text" placeholder="Ask anything" value={msg}
+          <textarea type="text" placeholder="Ask anything" value={msg}
             onChange={(e) => setMsg(e.target.value)} className="styles-input" />
           <FontAwesomeIcon icon={faWaveSquare} className="fas fa-wave-square styles-icon" onClick={handleSend} />
         </div>
