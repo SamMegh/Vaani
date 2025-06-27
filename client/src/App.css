@@ -438,7 +438,6 @@ body {
 .otherUserClass {
   display: flex;
   justify-content: left;
- 
   width: auto;
   position: relative;
   left: 0;
@@ -446,7 +445,7 @@ body {
   margin: 15px 10px;
   font-family: Verdana, sans-serif;
 
-} 
+}
 
 
 
@@ -472,6 +471,7 @@ body {
 }
 
 @media screen and (max-width: 780px) {
+
   .chat-main,
   .message-body,
   .message-input {
@@ -524,7 +524,48 @@ body {
     font-size: 0.8rem;
   }
 
-  .chat-history{
+  .chat-history {
     display: none;
+  }
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  border-radius: 20px;
+  background-color: #2c2c2c;
+  padding: 10px 15px;
+  width: 90%;
+  max-width: 600px;
+  margin: 20px auto;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.05);
+}
+
+
+.styles-input {
+  flex-grow: 1;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+  outline: none;
+  padding: 10px;
+}
+
+
+.styles-icon {
+  margin: 0 8px;
+  color: #ffffff;
+cursor: 'url("../src/assets/images2/dragon_9.jpg") 16 16, auto'
+}
+
+
+ @media screen and (max-width: 780px)  {
+  .chat-input-wrapper {
+    padding: 8px 12px;
+  }
+
+  .chat-input-wrapper input {
+    font-size: 14px;
   }
 }
