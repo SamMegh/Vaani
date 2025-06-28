@@ -9,31 +9,27 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const MainChatSection = () => {
-
-
-
-
-
-  const { messages, addMessage, sendMessage, getMessage } = useChatStore();
+  const { messages, sendMessage, getMessage,realTimeConvertiate, setCurrentRoom ,deleteRealTimeConvertiate } = useChatStore();
   const { isAuthuser } = useAuthStore();
   const myId = isAuthuser.uid;
   const [msg, setMsg] = useState("");
   const handleSend = () => {
     if (msg.trim) {
       sendMessage(msg);
+      setMsg("");
     }
   };
   useEffect(() => {
     getMessage();
-  }, [getMessage])
+    realTimeConvertiate();
+      if (messageBodyRef.current) {
+      messageBodyRef.current.scrollTop = messageBodyRef.current.scrollHeight;
+    }
+    return()=>deleteRealTimeConvertiate();
+  }, [getMessage, deleteRealTimeConvertiate, setCurrentRoom, messages, realTimeConvertiate])
 
   const messageBodyRef = useRef(null);
 
-  useEffect(() => {
-    if (messageBodyRef.current) {
-      messageBodyRef.current.scrollTop = messageBodyRef.current.scrollHeight;
-    }
-  }, [messages]); // this will run whenever messages change
   return (
     <div className='chat-main'>
       <div className="message-body " ref={messageBodyRef}>
