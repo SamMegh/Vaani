@@ -1,39 +1,23 @@
 import jwt from 'jsonwebtoken'
+import User from '../DBModels/user.model.js';
 
-export const protection= async(req,res, next)=>{
-    try {
-        const token= req.cookies.JWT
-        if(!token){
-            return res.status(401).json({message: "unauthroized access: no token provided"});
-        }
-        const decode=jwt.verify(token, process.env.JWT_SECRET);
-        if(!decode){
-             return res.status(401).json({message: "unauthroized access: invalid token provided"});
-        }   
-        req.user= await getUserByUID(decode.localId);
-        next();
-    } catch (error) {
-        res.status(500).json({message: "internal server error"+error});
-    }
-}
-import admin from "firebase-admin";
-
-
-const getUserByUID = async (uid) => {
+export const protection = async (req, res, next) => {
   try {
-    const userRecord = await admin.auth().getUser(uid);
-
-    return {
-      uid: userRecord.uid,
-      email: userRecord.email,
-      displayName: userRecord.displayName || null,
-      photoURL: userRecord.photoURL || null,
-      emailVerified: userRecord.emailVerified,
-      creationTime: userRecord.metadata.creationTime,
-      lastSignInTime: userRecord.metadata.lastSignInTime,
-    };
+    const token = req.cookies.JWT
+    if (!token) {
+      return res.status(401).json({ message: "unauthroized access: no token provided" });
+    }
+    const decode = jwt.verify(token, process.env.JWT_SECRET);
+    if (!decode) {
+      return res.status(401).json({ message: "unauthroized access: invalid token provided" });
+    }
+    const loginUser = await User.findById(decode.localId).select('-password');
+    if (!loginUser) {
+      return res.status(401).json({ message: 'user not found' });
+    }
+    req.user = loginUser;
+    next();
   } catch (error) {
-    console.error("Error fetching user:", error);
-    return null;
+    res.status(500).json({ message: "internal server error" + error });
   }
-};
+}
