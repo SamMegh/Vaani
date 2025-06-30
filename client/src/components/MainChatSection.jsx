@@ -9,7 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const MainChatSection = () => {
-  const { messages, sendMessage, getMessage,realTimeConvertiate, setCurrentRoom ,deleteRealTimeConvertiate } = useChatStore();
+  const { messages, sendMessage, getMessage, setCurrentRoom  } = useChatStore();
   const { isAuthuser } = useAuthStore();
   const myId = isAuthuser.uid;
   const [msg, setMsg] = useState("");
@@ -21,12 +21,12 @@ const MainChatSection = () => {
   };
   useEffect(() => {
     getMessage();
-    realTimeConvertiate();
+    // realTimeConvertiate();
       if (messageBodyRef.current) {
       messageBodyRef.current.scrollTop = messageBodyRef.current.scrollHeight;
     }
-    return()=>deleteRealTimeConvertiate();
-  }, [getMessage, deleteRealTimeConvertiate, setCurrentRoom, messages, realTimeConvertiate])
+    // return()=>deleteRealTimeConvertiate();
+  }, [getMessage, setCurrentRoom, messages])
 
   const messageBodyRef = useRef(null);
 

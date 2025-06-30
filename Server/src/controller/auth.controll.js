@@ -41,7 +41,7 @@ export const signin = async(req,res) => {
         if(!email||!password){
             return res.status(401).json({ message: "all fields are required"});
         }
-        if(password<6){
+        if(password.length <6){
             return res.status(401).json({ message: "password must be atleast 6 characters long"});            
         }
         const reqUser= await User.findOne({email});
@@ -69,6 +69,7 @@ export const signout = (req,res) => {
             return res.status(401).json({ message: "no user loged In"}); 
         }
         req.cookies('JWT','',{maxAge:1});
+        res.clearCookie('JWT');
         res.status(200).json({ message: "successfully logout"}); 
     } catch (error) {
         res.status(500).json({ message: "internal server error" + error });

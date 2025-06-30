@@ -22,8 +22,8 @@ export const useChatStore = create((set, get) => ({
     if (!currentRoom) return;
 
     try {
-      const res = await Instance.post("/chat/getchat", {
-        roomId: currentRoom,
+      const res = await Instance.post("/chat/getchats", {
+        roomID: currentRoom,
       });
       set({ messages: res.data });
     } catch (error) {
@@ -50,7 +50,7 @@ export const useChatStore = create((set, get) => ({
 
   getMessageCollection: async () => {
     try {
-      const res = await Instance.get("/chat/getchatroom");
+      const res = await Instance.get("/chat/getchatrooms");
       set({ chatRooms: res.data });
     } catch (error) {
       const errorMessage =
@@ -63,28 +63,21 @@ export const useChatStore = create((set, get) => ({
 
   sendMessage: async (msg) => {
     const { currentRoom, createMsgCollection } = get();
+    const isAuthuser = useAuthStore.getState().isAuthuser;
     try {
+      if(!isAuthuser)return;
       let roomId = currentRoom;
       if (!roomId) {
         await createMsgCollection();
         roomId = get().currentRoom;
       }
 
-      const userRes = await Instance.post("/chat/addusermessage", {
-        prompt: msg,
-        roomId,
+      await Instance.post("/chat/sendmessage", {
+        senderid:isAuthuser._id,
+        name:isAuthuser.name,
+        msg,
+        roomID:roomId,
       });
-      set((state) => ({
-        messages: [...state.messages, userRes.data],
-      }));
-
-      const assisRes = await Instance.post("/chat/sendchat", {
-        prompt: msg,
-        roomId,
-      });
-      set((state) => ({
-        messages: [...state.messages, assisRes.data],
-      }));
     } catch (error) {
       const errorMessage =
         error.response?.data?.message ||
@@ -94,21 +87,21 @@ export const useChatStore = create((set, get) => ({
     }
   },
   
-  realTimeConvertiate: () => {
-    const { currentRoom } = get();
-    const socket = useAuthStore.getState().socket;
-    if (!socket || !currentRoom) return;
+  // realTimeConvertiate: () => {
+  //   const { currentRoom } = get();
+  //   const socket = useAuthStore.getState().socket;
+  //   if (!socket || !currentRoom) return;
 
-    socket.on("newMsg", (newMsg) => {
-      console.log("New message from socket:", newMsg);
-      set((state) => ({
-        messages: [...state.messages, newMsg],
-      }));
-    });
-  },
+  //   socket.on("newMsg", (newMsg) => {
+  //     console.log("New message from socket:", newMsg);
+  //     set((state) => ({
+  //       messages: [...state.messages, newMsg],
+  //     }));
+  //   });
+  // },
 
-  deleteRealTimeConvertiate: () => {
-    const socket = useAuthStore.getState().socket;
-    socket.off("newMsg");
-  },
+  // deleteRealTimeConvertiate: () => {
+  //   const socket = useAuthStore.getState().socket;
+  //   socket.off("newMsg");
+  // },
 }));

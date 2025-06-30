@@ -1,6 +1,6 @@
 import { chatcomplete } from "../model/chatAi.model.js";
-import Message  from "../model/message.model.js";
-import Chatroom from "../model/chatRoom.model.js";
+import Message  from "../DBModels/message.model.js";
+import Chatroom from "../DBModels/chatRoom.model.js";
 
 const addToDB= async(senderid,name,msg, roomID)=>{
     try {
@@ -113,11 +113,3 @@ export const share= async(req,res)=>{
         res.status(500).json({ message: 'Internal server error' + error });
     }
 }
-
-// export const sendMessage= async(req,res)=>{
-//     try {
-        
-//     } catch (error) {
-//         res.status(500).json({ message: 'Internal server error' + error });
-//     }
-// }

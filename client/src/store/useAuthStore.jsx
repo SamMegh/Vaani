@@ -15,7 +15,7 @@ export const useAuthStore = create((set, get) => ({
     set({ isLogin: true });
     try {
       const res = await Instance.post("/auth/signin", data);
-      set({ isAuthuser: res.data.user });
+      set({ isAuthuser: res.data });
       get().connectSocket();
     } catch (error) {
       const errorMessage =
@@ -33,7 +33,7 @@ export const useAuthStore = create((set, get) => ({
     try {
       const res = await Instance.post("/auth/signup", data);
       if (res.status === 200) {
-        set({ isAuthuser: res.data.user });
+        set({ isAuthuser: res.data });
         get().connectSocket();
       }
     } catch (error) {
