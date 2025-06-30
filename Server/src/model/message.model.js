@@ -1,28 +1,33 @@
 import mongoose from "mongoose";
+import User from "../DBModels/user.model.js";
 
 const messageSchema = new mongoose.Schema({
-    senderid: {
-        type: String,
-        required: true,
-        ref: "User"
-    },
-    name: {
-        type: String,
-        ref: "User",
-        default:'unKnown'
-    },
-    message: {
-        type: String,
-    },
+  senderid: {
+    type: String,
+    required: true
+  },
+  name: {
+    type: String,
+    required: true
+  },
+  message: {
+    type: String,
+    required: true
+  },
 }, {
-    timestamps: true
+  timestamps: true
 });
 
 
 const chatroomSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true
+    default: 'Unnamed Chatroom'
+  },
+  admin: {
+    type: String,
+    required: true,
+    ref:User
   },
   messages: [{
     type: mongoose.Schema.Types.ObjectId,
@@ -31,6 +36,6 @@ const chatroomSchema = new mongoose.Schema({
 });
 
 
-const Message= mongoose.model("Message",messageSchema)
+const Message = mongoose.model("Message", messageSchema)
 const Chatroom = mongoose.model('Chatroom', chatroomSchema);
-export {Message,Chatroom}
+export { Message, Chatroom }
