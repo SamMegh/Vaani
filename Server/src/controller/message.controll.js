@@ -78,9 +78,17 @@ export const getChatRooms= async(req,res)=>{
 }
 
 export const getChats= async(req,res)=>{
-    
+
     try {
-        
+        const {roomID}= req.body;
+        const chatroom= await Chatroom.findById(roomID);
+        if (chatroom.admin.toString() !== req.user._id.toString()||!chatroom) {
+            return res.status(401).json("Not your chatroom");
+        }
+        const messages = await Message.find({
+            _id: { $in: chatroom.messages }
+            }).sort({ createdAt: -1 });
+        res.status(200).json({ messages });
     } catch (error) {
         res.status(500).json({ message: 'Internal server error' + error });
     }
