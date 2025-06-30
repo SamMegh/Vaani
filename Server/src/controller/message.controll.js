@@ -94,13 +94,25 @@ export const getChats= async(req,res)=>{
     }
 }
 
-// export const sendMessage= async(req,res)=>{
-//     try {
-        
-//     } catch (error) {
-//         res.status(500).json({ message: 'Internal server error' + error });
-//     }
-// }
+export const share= async(req,res)=>{
+    try {
+        const {userId,roomID}=req.body;
+        const admin= req.user._id;
+        const chatroom= await Chatroom.findById(roomID);
+
+        if(admin.toString!==chatroom.admin.toString()||!chatroom){
+            return res.status(401).json({message:"your are not able to add user to this chat room."});
+        }
+        const result = await chatroom.participants.push(userId);
+        if(!result){
+            return res.status(401).json({message:"unable to add user to this chat room."});
+        }
+            return res.status(200).json({message:"user added to this chat room"});
+
+    } catch (error) {
+        res.status(500).json({ message: 'Internal server error' + error });
+    }
+}
 
 // export const sendMessage= async(req,res)=>{
 //     try {
