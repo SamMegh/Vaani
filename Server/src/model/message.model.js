@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import User from "../DBModels/user.model.js";
 
 const messageSchema = new mongoose.Schema({
   senderid: {
@@ -19,23 +18,6 @@ const messageSchema = new mongoose.Schema({
 });
 
 
-const chatroomSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    default: 'Unnamed Chatroom'
-  },
-  admin: {
-    type: String,
-    required: true,
-    ref:User
-  },
-  messages: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Message'
-  }]
-});
-
-
 const Message = mongoose.model("Message", messageSchema)
-const Chatroom = mongoose.model('Chatroom', chatroomSchema);
-export { Message, Chatroom }
+
+export default Message;

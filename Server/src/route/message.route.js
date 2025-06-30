@@ -1,9 +1,12 @@
 import express from 'express';
-import {newChatRoom} from '../controller/message.controll.js';
+import {getChatRooms, newChatRoom, sendMessage} from '../controller/message.controll.js';
 import { protection } from '../midlayer/protect.midlayer.js';
 
 const router = express.Router();
 
-router.get('/newChatRoom',protection,newChatRoom);
+router.get('/newchatroom',protection,newChatRoom);
+router.get('/getchatrooms',protection,getChatRooms);
+router.get('/getchatrooms',protection,getChatRooms);
+router.post('/sendmessage',protection,sendMessage);
 
 export default router;
