@@ -6,14 +6,14 @@ export const signup = async (req, res) => {
     try {
         const {email, password, name}= req.body;
         if(!email || !password || !name){
-            res.status(401).json({ message: "all fields are required"});
+           return res.status(401).json({ message: "all fields are required"});
         }
         if(password<6){
-            res.status(401).json({ message: "password must be atleast 6 characters long"});            
+            return res.status(401).json({ message: "password must be atleast 6 characters long"});            
         }
         const user= await User.findOne({email});
         if(user){
-            res.status(400).json({message:"user already exists"});
+            return res.status(400).json({message:"user already exists"});
         }
         const salt = await bcrypt.genSalt(10);
         const hashPassword= await bcrypt.hash(password,salt);
@@ -25,7 +25,7 @@ export const signup = async (req, res) => {
         if(newUser){
             generatorToken(newUser._id,res);
             await newUser.save();
-            res.status(200).json({
+           return res.status(200).json({
                 id: newUser._id,
                 email:newUser.email,
                 name:newUser.name
@@ -39,18 +39,18 @@ export const signin = async(req,res) => {
     try {
         const {email, password}= req.body;
         if(!email||!password){
-            res.status(401).json({ message: "all fields are required"});
+            return res.status(401).json({ message: "all fields are required"});
         }
         if(password<6){
-            res.status(401).json({ message: "password must be atleast 6 characters long"});            
+            return res.status(401).json({ message: "password must be atleast 6 characters long"});            
         }
         const reqUser= await User.findOne({email});
         if(!reqUser){
-            res.status(401).json({ message: "user not found"}); 
+            return res.status(401).json({ message: "user not found"}); 
         }
         const iscorrect= await bcrypt.compare(password, reqUser.password);
         if(!iscorrect){
-            res.status(401).json({ message: "invalid email or password"}); 
+            return res.status(401).json({ message: "invalid email or password"}); 
         }
         generatorToken(reqUser._id,res);
         res.status(200).json({
@@ -66,7 +66,7 @@ export const signin = async(req,res) => {
 export const signout = (req,res) => {
     try {
         if(!req.cookies.JWT){
-            res.status(401).json({ message: "no user loged In"}); 
+            return res.status(401).json({ message: "no user loged In"}); 
         }
         req.cookies('JWT','',{maxAge:1});
         res.status(200).json({ message: "successfully logout"}); 

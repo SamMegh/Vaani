@@ -6,15 +6,10 @@ const messageSchema = new mongoose.Schema({
         required: true,
         ref: "User"
     },
-    receiverid: {
-        type: String,
-        required: true,
-        ref: "User"
-    },
     name: {
         type: String,
         ref: "User",
-        required: true
+        default:'unKnown'
     },
     message: {
         type: String,
@@ -23,6 +18,19 @@ const messageSchema = new mongoose.Schema({
     timestamps: true
 });
 
-const Message= mongoose.model("Message",messageSchema)
 
-export default Message
+const chatroomSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  messages: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Message'
+  }]
+});
+
+
+const Message= mongoose.model("Message",messageSchema)
+const Chatroom = mongoose.model('Chatroom', chatroomSchema);
+export {Message,Chatroom}

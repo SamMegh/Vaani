@@ -1,10 +1,14 @@
 import mongoose from "mongoose";
-export const connect= async ()=>{
-        try {
-            const connection= await mongoose.connect(process.env.MONGODB_URL);
-            console.log("connected to database "+ connection.connection.host)
-        } catch (error) {
-            console.log("unable to connected with database " + error);
-            
-        }
+export const connect = async () => {
+    try {
+        const user = process.env.MONGODB_USER;
+        const pass = encodeURIComponent(process.env.MONGODB_PASS);
+        const db = process.env.MONGODB_NAME;
+        const MONGODB_URL = `mongodb+srv://${user}:${pass}@chatbot.jow6fvf.mongodb.net/${db}?retryWrites=true&w=majority`;
+        const connection = await mongoose.connect(MONGODB_URL);
+        console.log("connected to database " + connection.connection.host)
+    } catch (error) {
+        console.log("unable to connected with database " + error);
+
+    }
 }
