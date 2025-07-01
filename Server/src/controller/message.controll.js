@@ -89,7 +89,7 @@ export const getChats= async(req,res)=>{
         }
         const messages = await Message.find({
             _id: { $in: chatroom.messages }
-            }).sort({ createdAt: -1 });
+            }).sort({ createdAt: 1 });
         res.status(200).json({ messages });
     } catch (error) {
         res.status(500).json({ message: 'Internal server error' + error });
@@ -102,7 +102,7 @@ export const share= async(req,res)=>{
         const admin= req.user._id;
         const chatroom= await Chatroom.findById(roomID);
 
-        if(admin.toString!==chatroom.admin.toString()||!chatroom){
+        if(admin.toString()!==chatroom.admin.toString()||!chatroom){
             return res.status(401).json({message:"your are not able to add user to this chat room."});
         }
         const result = await chatroom.participants.push(userId);

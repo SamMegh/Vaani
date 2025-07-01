@@ -68,7 +68,6 @@ export const signout = (req,res) => {
         if(!req.cookies.JWT){
             return res.status(401).json({ message: "no user loged In"}); 
         }
-        req.cookies('JWT','',{maxAge:1});
         res.clearCookie('JWT');
         res.status(200).json({ message: "successfully logout"}); 
     } catch (error) {
