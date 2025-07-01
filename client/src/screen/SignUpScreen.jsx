@@ -4,9 +4,10 @@ import { Link } from "react-router-dom";
 const SignUpScreen = () => {
   const [signupData, setsignupData] = useState({
     email: "",
+    name: "",
     password: "",
   });
-const {signup,isAuthuser}=useAuthStore();
+const {signup}=useAuthStore();
 
   const handleSignUp = async (e) => {
     e.preventDefault(); 
@@ -31,6 +32,16 @@ const {signup,isAuthuser}=useAuthStore();
           placeholder="Email"
           value={signupData.email}
           onChange={(e)=>setsignupData({...signupData,email:e.target.value})}
+        />
+
+        <input
+          className="Login-input"
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Name"
+          value={signupData.name}
+          onChange={(e)=>setsignupData({...signupData,name:e.target.value})}
         />
         <input
           className="Login-input"
