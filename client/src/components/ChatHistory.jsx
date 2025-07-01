@@ -19,18 +19,7 @@ const ChatHistory = () => {
   // Fetch chatRooms on mount
   useEffect(() => {
     getMessageCollection();
-  }, [getMessageCollection]);
-
-  // Auto-select and load first chat when chatRooms load
-  useEffect(() => {
-    if (!active && chatRooms.length > 0) {
-      const firstChat = chatRooms[0];
-      setActive(firstChat);
-      setCurrentRoom(firstChat._id);
-      getMessage();
-    }
-  }, [chatRooms, active, getMessage, setCurrentRoom]);
-
+  }, [getMessageCollection])
   return (
     <div className="container">
       <div className="mobile-toggle" onClick={() => setIsOpen(!isOpen)}>

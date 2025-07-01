@@ -67,7 +67,7 @@ export const newChatRoom = async (req, res) => {
 export const getChatRooms = async (req, res) => {
     try {
         const userId = req.user._id;
-        const chatrooms = await Chatroom.find({ participants: { $in: [userId] } });
+        const chatrooms = await Chatroom.find({ participants: { $in: [userId] } }).sort({ createdAt: 1 });
         if (!chatrooms) {
             return res.status(200).json();
         }

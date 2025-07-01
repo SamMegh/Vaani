@@ -3,7 +3,7 @@ import Instance from "../lib/axios";
 import { useAuthStore } from "./useAuthStore";
 
 export const useChatStore = create((set, get) => ({
-  currentRoom: "6862d9abf4e8d12e8072b3bf",
+  currentRoom: null,
   messages: [],
   chatRooms: [],
 
