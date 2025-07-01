@@ -6,7 +6,7 @@ import { faPlus, faWaveSquare } from "@fortawesome/free-solid-svg-icons";
 import OnLoader from "../components/OnLoder.jsx"; // ✅ Import your loader
 
 const MainChatSection = () => {
-  const { messages, sendMessage, getMessage } = useChatStore();
+  const { messages, sendMessage, getMessage ,realTimeConvertiate,deleteRealTimeConvertiate} = useChatStore();
   const { isAuthuser } = useAuthStore();
   const myId = isAuthuser._id;
 
@@ -17,14 +17,16 @@ const MainChatSection = () => {
 
   // ✅ Load messages on mount
   useEffect(() => {
-    const fetchMessages = async () => {
-      setLoading(true);
-      await getMessage(); // assuming it's async
-      setLoading(false);
-    };
+    setLoading(true);
+    getMessage();
+    setLoading(false)
+    realTimeConvertiate();
+    if (messageBodyRef.current) {
+      messageBodyRef.current.scrollTop = messageBodyRef.current.scrollHeight;
+    }
+    return()=>deleteRealTimeConvertiate();
+  }, [ getMessage, messages,realTimeConvertiate,deleteRealTimeConvertiate]);
 
-    fetchMessages();
-  }, [getMessage]);
 
   // ✅ Auto-scroll to bottom when messages change
   useEffect(() => {
