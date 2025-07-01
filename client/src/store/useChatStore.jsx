@@ -7,7 +7,11 @@ export const useChatStore = create((set, get) => ({
   messages: [],
   chatRooms: [],
 
-  setCurrentRoom: (chatRoomId) => set({currentRoom:chatRoomId}),
+  setCurrentRoom: (chatRoomId) => {
+    set({currentRoom:chatRoomId});
+    const socket= useAuthStore.getState().socket;
+    socket.emit("joinRoom", chatRoomId);
+},
 
   getMessage: async () => {
     const { currentRoom } = get();
@@ -82,21 +86,20 @@ export const useChatStore = create((set, get) => ({
     }
   },
   
-  // realTimeConvertiate: () => {
-  //   const { currentRoom } = get();
-  //   const socket = useAuthStore.getState().socket;
-  //   if (!socket || !currentRoom) return;
+  realTimeConvertiate: () => {
+    const { currentRoom } = get();
+    const socket = useAuthStore.getState().socket;
+    console.log(socket);
+    if (!socket || !currentRoom) return;
+    socket.on("newMsg", (newMsg) => {
+      set((state) => ({
+        messages: [...state.messages, newMsg],
+      }));
+    });
+  },
 
-  //   socket.on("newMsg", (newMsg) => {
-  //     console.log("New message from socket:", newMsg);
-  //     set((state) => ({
-  //       messages: [...state.messages, newMsg],
-  //     }));
-  //   });
-  // },
-
-  // deleteRealTimeConvertiate: () => {
-  //   const socket = useAuthStore.getState().socket;
-  //   socket.off("newMsg");
-  // },
+  deleteRealTimeConvertiate: () => {
+    const socket = useAuthStore.getState().socket;
+    socket.off("newMsg");
+  },
 }));

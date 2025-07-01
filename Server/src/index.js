@@ -16,9 +16,6 @@ app.use(cors({
   credentials: true
 }));
 
-app.get('/', async(req,res)=>{
- res.send("server is working");
-});
 app.use('/chat', messageroute );
 app.use('/auth', authroute);
 

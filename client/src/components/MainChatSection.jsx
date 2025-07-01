@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faWaveSquare } from "@fortawesome/free-solid-svg-icons";
 
 const MainChatSection = () => {
-  const { messages, sendMessage, getMessage, setCurrentRoom } = useChatStore();
+  const { messages, sendMessage, getMessage, setCurrentRoom, deleteRealTimeConvertiate ,realTimeConvertiate } = useChatStore();
   const { isAuthuser } = useAuthStore();
   const myId = isAuthuser._id;
   const [msg, setMsg] = useState("");
@@ -17,12 +17,12 @@ const MainChatSection = () => {
     }
   };
   useEffect(() => {
-    // realTimeConvertiate();
+    realTimeConvertiate();
     if (messageBodyRef.current) {
       messageBodyRef.current.scrollTop = messageBodyRef.current.scrollHeight;
     }
-    // return()=>deleteRealTimeConvertiate();
-  }, [setCurrentRoom, messages]);
+    return()=>deleteRealTimeConvertiate();
+  }, [setCurrentRoom, messages,deleteRealTimeConvertiate,realTimeConvertiate]);
 
   const messageBodyRef = useRef(null);
 

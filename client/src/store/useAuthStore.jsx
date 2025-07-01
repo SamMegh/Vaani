@@ -1,22 +1,22 @@
 import { create } from "zustand";
 import Instance from "../lib/axios";
-// import {io} from 'socket.io-client';
+import {io} from 'socket.io-client';
 
 
 const MAINURL='http://localhost:8080/'
-export const useAuthStore = create((set/*, get*/) => ({
+export const useAuthStore = create((set, get) => ({
   isAuthuser: null,
   isCheckauth: false,
   isSignout: false,
   isLogin: false,
   isSignup: false,
-  // socket: null,
+  socket: null,
   login: async (data) => {
     set({ isLogin: true });
     try {
       const res = await Instance.post("/auth/signin", data);
       set({ isAuthuser: res.data });
-      // get().connectSocket();
+      get().connectSocket();
     } catch (error) {
       const errorMessage =
         error.response?.data?.message ||
@@ -34,7 +34,7 @@ export const useAuthStore = create((set/*, get*/) => ({
       const res = await Instance.post("/auth/signup", data);
       if (res.status === 200) {
         set({ isAuthuser: res.data });
-        // get().connectSocket();
+        get().connectSocket();
       }
     } catch (error) {
       const errorMessage =
@@ -56,7 +56,7 @@ export const useAuthStore = create((set/*, get*/) => ({
         return;
       }
       set({ isAuthuser: null });
-     // get().disconnectSocket();
+     get().disconnectSocket();
     } catch (error) {
       const errorMessage =
         error.response?.data?.message ||
@@ -73,7 +73,7 @@ export const useAuthStore = create((set/*, get*/) => ({
     try {
       const res = await Instance.get("/auth/check");
       set({ isAuthuser: res.data });
-     // get().connectSocket();
+     get().connectSocket();
     } catch (error) {
       const errorMessage =
         error.response?.data?.message ||
@@ -85,14 +85,23 @@ export const useAuthStore = create((set/*, get*/) => ({
       set({ isCheckauth: false });
     }
   },
-  // connectSocket: () => {
-  //   const {isAuthuser}=get();
-  //   if(!isAuthuser||get().socket?.connected)return;
-  //   const socket = io(MAINURL.trim());
-  //   socket.connect();
-  //   set({socket:socket});
-  // },
-  // disconnectSocket: () => {
-  //   if(get().socket?.connected) get().socket.disconnect();
-  // },
+  connectSocket: () => {
+  const { isAuthuser } = get();
+
+  // Don't reconnect if already connected
+  if (!isAuthuser || get().socket?.connected) return;
+
+  // 👇 Pass userId (or any user identifier) in query
+  const socket = io(MAINURL.trim(), {
+    query: {
+      userId: isAuthuser._id  // or isAuthuser.id depending on your structure
+    }
+  });
+
+  set({ socket });
+  
+},
+  disconnectSocket: () => {
+    if(get().socket?.connected) get().socket.disconnect();
+  },
 }));

@@ -3,7 +3,7 @@ import http from 'http';
 import express from 'express';
 
 const app = express();
-const server = new http.createServer(app);
+const server = http.createServer(app); 
 
 const io = new Server(server, {
     cors: {
@@ -13,7 +13,15 @@ const io = new Server(server, {
 });
 io.on("connection",(socket)=>{
     console.log("new user connected", socket.id);
-  // Listen for room join
+  const userId = socket.handshake.query.userId;
+
+  if (userId) {
+    // Let the socket join a room with the name of the userId
+    socket.join(userId);
+    console.log(`Socket ${socket.id} joined personal room: ${userId}`);
+  }
+
+    
   socket.on("joinRoom", (roomId) => {
     socket.join(roomId);
     console.log(`User ${socket.id} joined room ${roomId}`);

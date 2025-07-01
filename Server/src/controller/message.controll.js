@@ -1,10 +1,11 @@
 import { chatcomplete } from "../model/chatAi.model.js";
 import Message from "../DBModels/message.model.js";
 import Chatroom from "../DBModels/chatRoom.model.js";
+import { io } from "../lib/socket.js";
 
 const addToDB = async (senderid, name, msg, roomID) => {
     try {
-        if (!msg || !roomID || !name) return;
+        if (!msg || !roomID || !name || !senderid) return;
         const newMsg = new Message({
             senderid,
             name,
@@ -12,6 +13,8 @@ const addToDB = async (senderid, name, msg, roomID) => {
             roomID
         });
         await newMsg.save();
+
+    io.to(roomID).emit("newMsg", newMsg);
 
         const chatroom = await Chatroom.findById(roomID);
 
