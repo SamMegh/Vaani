@@ -1,17 +1,40 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useChatStore } from "../store/useChatStore.jsx";
 import { useAuthStore } from "../store/useAuthStore.jsx";
-import { useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faWaveSquare } from "@fortawesome/free-solid-svg-icons";
+import OnLoader from "../components/OnLoder.jsx"; // ✅ Import your loader
 
 const MainChatSection = () => {
   const { messages, sendMessage, getMessage, setCurrentRoom, deleteRealTimeConvertiate ,realTimeConvertiate } = useChatStore();
   const { isAuthuser } = useAuthStore();
   const myId = isAuthuser._id;
+
   const [msg, setMsg] = useState("");
+  const [loading, setLoading] = useState(true); // ✅ Loader state
+
+  const messageBodyRef = useRef(null);
+
+  // ✅ Load messages on mount
+  useEffect(() => {
+    const fetchMessages = async () => {
+      setLoading(true);
+      await getMessage(); // assuming it's async
+      setLoading(false);
+    };
+
+    fetchMessages();
+  }, [getMessage]);
+
+  // ✅ Auto-scroll to bottom when messages change
+  useEffect(() => {
+    if (messageBodyRef.current) {
+      messageBodyRef.current.scrollTop = messageBodyRef.current.scrollHeight;
+    }
+  }, [messages]);
+
   const handleSend = () => {
-    if (msg.trim) {
+    if (msg.trim()) {
       sendMessage(msg);
       setMsg("");
     }
@@ -28,10 +51,11 @@ const MainChatSection = () => {
 
   return (
     <div className="chat-main">
-      <div className="message-body " ref={messageBodyRef}>
-        <h1 className="message-title">list of messages are </h1>
+      <div className="message-body" ref={messageBodyRef}>
+        <h1 className="message-title">List of messages:</h1>
         {messages.map((msg, index) => (
           <li
+            key={msg._id || index}
             className={
               msg.senderid === myId
                 ? "itsMeClass"
@@ -39,14 +63,13 @@ const MainChatSection = () => {
                 ? "assistantclass"
                 : "otherUserClass"
             }
-            key={msg._id || index}
           >
             <span className="msg-rol">{msg.name}</span>
-            <span className="msg-prompt">{msg.message
-  }</span>
+            <span className="msg-prompt">{msg.message}</span>
           </li>
         ))}
       </div>
+
       <div className="message-input">
         <div className="chat-input-wrapper wrapper">
           <FontAwesomeIcon
@@ -55,7 +78,6 @@ const MainChatSection = () => {
             onClick={getMessage}
           />
           <textarea
-            type="text"
             placeholder="Ask anything"
             value={msg}
             onChange={(e) => setMsg(e.target.value)}

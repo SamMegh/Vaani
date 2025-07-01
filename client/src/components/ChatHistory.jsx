@@ -54,7 +54,7 @@ const ChatHistory = () => {
               style={{ justifyContent: collapsed ? "center" : "flex-start" }}
               title={collapsed ? item.name : undefined}
             >
-              <FiMessageSquare className="icon" />
+              <FiMessageSquare className={`icon ${active === item ? "active" : ""}`} />
               {!collapsed && item.name}
             </button>
           ))}
