@@ -6,6 +6,7 @@ export const useChatStore = create((set, get) => ({
   currentRoom: null,
   messages: [],
   chatRooms: [],
+  getMessageLoader:false,
 
   setCurrentRoom: (chatRoomId) => {
     set({currentRoom:chatRoomId});
@@ -14,6 +15,7 @@ export const useChatStore = create((set, get) => ({
 },
 
   getMessage: async () => {
+    set({getMessageLoader:true});
     const { currentRoom } = get();
     if (!currentRoom) return;
 
@@ -29,6 +31,8 @@ export const useChatStore = create((set, get) => ({
         error.message ||
         "Something went wrong!";
       console.error("Error fetching messages:", errorMessage);
+    } finally{
+      set({getMessageLoader:false});
     }
   },
 

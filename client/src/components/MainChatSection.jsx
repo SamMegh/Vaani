@@ -6,20 +6,16 @@ import { faPlus, faWaveSquare } from "@fortawesome/free-solid-svg-icons";
 import OnLoader from "../components/OnLoder.jsx"; // ✅ Import your loader
 
 const MainChatSection = () => {
-  const { messages, sendMessage, getMessage ,realTimeConvertiate,deleteRealTimeConvertiate} = useChatStore();
+  const { messages, sendMessage, getMessage ,realTimeConvertiate,deleteRealTimeConvertiate,getMessageLoader} = useChatStore();
   const { isAuthuser } = useAuthStore();
   const myId = isAuthuser._id;
 
-  const [msg, setMsg] = useState("");
-  const [loading, setLoading] = useState(true); // ✅ Loader state
+  const [msg, setMsg] = useState("");// ✅ Loader state
 
   const messageBodyRef = useRef(null);
 
   // ✅ Load messages on mount
   useEffect(() => {
-    setLoading(true);
-    getMessage();
-    setLoading(false)
     realTimeConvertiate();
     if (messageBodyRef.current) {
       messageBodyRef.current.scrollTop = messageBodyRef.current.scrollHeight;
@@ -28,12 +24,6 @@ const MainChatSection = () => {
   }, [ getMessage, messages,realTimeConvertiate,deleteRealTimeConvertiate]);
 
 
-  // ✅ Auto-scroll to bottom when messages change
-  useEffect(() => {
-    if (messageBodyRef.current) {
-      messageBodyRef.current.scrollTop = messageBodyRef.current.scrollHeight;
-    }
-  }, [messages]);
 
   const handleSend = () => {
     if (msg.trim()) {
@@ -43,7 +33,7 @@ const MainChatSection = () => {
   };
 
   // ✅ Show loader while fetching messages
-  if (loading) {
+  if (getMessageLoader) {
     return <OnLoader />;
   }
 
