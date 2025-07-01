@@ -49,6 +49,7 @@ const MainChatSection = () => {
     <div className="chat-main">
       <div className="message-body" ref={messageBodyRef}>
         <h1 className="message-title">List of messages:</h1>
+        
         {messages.map((msg, index) => (
           <li
             key={msg._id || index}
