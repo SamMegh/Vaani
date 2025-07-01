@@ -1,21 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { FiMenu, FiMessageSquare } from "react-icons/fi";
+// eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import { useChatStore } from "../store/useChatStore";
-const ChatHistory = () => {
-  const { getMessageCollection, chatRooms, setCurrentRoom, getMessage } =
-    useChatStore();
-  const [isOpen, setIsOpen] = useState(true);
-  const [collapsed, setCollapsed] = useState(false);
-  const [active, setActive] = useState(
-    chatRooms.length > 0 ? chatRooms[0] : null
-  );
 
+const ChatHistory = () => {
+  const {
+    getMessageCollection,
+    chatRooms,
+    setCurrentRoom,
+    getMessage,
+  } = useChatStore();
+
+  const [isOpen, setIsOpen] = useState(true);
+  const [collapsed, setCollapsed] = useState(true);
+  const [active, setActive] = useState(null);
+
+  // Fetch chatRooms on mount
+  useEffect(() => {
+    getMessageCollection();
+  }, [getMessageCollection]);
+
+  // Auto-select and load first chat when chatRooms load
   useEffect(() => {
     if (!active && chatRooms.length > 0) {
-      setActive(chatRooms[0]);
+      const firstChat = chatRooms[0];
+      setActive(firstChat);
+      setCurrentRoom(firstChat._id);
+      getMessage();
     }
-  }, [chatRooms, active]);
+  }, [chatRooms, active, getMessage, setCurrentRoom]);
 
   return (
     <div className="container">
@@ -30,10 +44,7 @@ const ChatHistory = () => {
         className={`sidebar ${collapsed ? "collapsed" : ""}`}
       >
         <button
-          onClick={() => {
-            setCollapsed(!collapsed);
-            getMessageCollection();
-          }}
+          onClick={() => setCollapsed(!collapsed)}
           className="toggle-collapse-btn"
         >
           <FiMenu />
@@ -52,7 +63,7 @@ const ChatHistory = () => {
                 getMessage();
               }}
               style={{ justifyContent: collapsed ? "center" : "flex-start" }}
-              title={collapsed ? item : undefined}
+              title={collapsed ? item.name : undefined}
             >
               <FiMessageSquare className="icon" />
               {!collapsed && item.name}
