@@ -53,7 +53,8 @@ const MainChatSection = () => {
         <div className="chat-input-wrapper wrapper">
           <FontAwesomeIcon icon={faPlus} className="fas fa-plus styles-icon" />
           <textarea type="text" placeholder="Ask anything" value={msg}
-            onChange={(e) => setMsg(e.target.value)} className="styles-input" />
+            onChange={(e) => setMsg(e.target.value)} className="styles-input"
+            rows={2} />
           <FontAwesomeIcon icon={faWaveSquare} className="fas fa-wave-square styles-icon" onClick={handleSend} />
         </div>
 
