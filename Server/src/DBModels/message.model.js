@@ -13,6 +13,9 @@ const messageSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  roomID:{
+    type:String
+  }
 }, {
   timestamps: true
 });

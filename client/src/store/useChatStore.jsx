@@ -6,16 +6,8 @@ export const useChatStore = create((set, get) => ({
   currentRoom: "6862d9abf4e8d12e8072b3bf",
   messages: [],
   chatRooms: [],
-  // setCurrentRoom: () => {
-  //   const socket = useAuthStore.getState().socket;
-  //   const { currentRoom } = get();
-  //   if (socket && currentRoom) {
-  //     // Join new room
-  //     socket.emit("joinRoom", currentRoom);
-  //   }
 
-  //   set({ currentRoom: currentRoom });
-  // },
+  setCurrentRoom: (chatRoomId) => set({currentRoom:chatRoomId}),
 
   getMessage: async () => {
     const { currentRoom } = get();
@@ -38,7 +30,9 @@ export const useChatStore = create((set, get) => ({
 
   createMsgCollection: async () => {
     try {
+      const { setCurrentRoom}=get();
       const res = await Instance.get("/chat/newchatroom");
+       setCurrentRoom(res.data);
       set({ currentRoom: res.data });
     } catch (error) {
       const errorMessage =
