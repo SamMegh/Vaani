@@ -92,11 +92,7 @@ export const useAuthStore = create((set, get) => ({
   if (!isAuthuser || get().socket?.connected) return;
 
   // 👇 Pass userId (or any user identifier) in query
-  const socket = io(MAINURL.trim(), {
-    query: {
-      userId: isAuthuser._id  // or isAuthuser.id depending on your structure
-    }
-  });
+  const socket = io(MAINURL.trim());
 
   set({ socket });
   

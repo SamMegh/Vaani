@@ -14,7 +14,7 @@ const addToDB = async (senderid, name, msg, roomID) => {
         });
         await newMsg.save();
 
-    io.to(roomID).emit("newMsg", newMsg);
+        io.to(roomID).emit("newMsg", newMsg);
 
         const chatroom = await Chatroom.findById(roomID);
 
