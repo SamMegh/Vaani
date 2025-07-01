@@ -6,7 +6,7 @@ import { faPlus, faWaveSquare } from "@fortawesome/free-solid-svg-icons";
 import OnLoader from "../components/OnLoder.jsx"; // ✅ Import your loader
 
 const MainChatSection = () => {
-  const { messages, sendMessage, getMessage, setCurrentRoom, deleteRealTimeConvertiate ,realTimeConvertiate } = useChatStore();
+  const { messages, sendMessage, getMessage } = useChatStore();
   const { isAuthuser } = useAuthStore();
   const myId = isAuthuser._id;
 
@@ -39,20 +39,17 @@ const MainChatSection = () => {
       setMsg("");
     }
   };
-  useEffect(() => {
-    realTimeConvertiate();
-    if (messageBodyRef.current) {
-      messageBodyRef.current.scrollTop = messageBodyRef.current.scrollHeight;
-    }
-    return()=>deleteRealTimeConvertiate();
-  }, [setCurrentRoom, messages,deleteRealTimeConvertiate,realTimeConvertiate]);
 
-  const messageBodyRef = useRef(null);
+  // ✅ Show loader while fetching messages
+  if (loading) {
+    return <OnLoader />;
+  }
 
   return (
     <div className="chat-main">
       <div className="message-body" ref={messageBodyRef}>
         <h1 className="message-title">List of messages:</h1>
+        
         {messages.map((msg, index) => (
           <li
             key={msg._id || index}

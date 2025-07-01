@@ -19,7 +19,8 @@ const ChatHistory = () => {
   // Fetch chatRooms on mount
   useEffect(() => {
     getMessageCollection();
-  }, [getMessageCollection])
+  }, [getMessageCollection]);
+
   return (
     <div className="container">
       <div className="mobile-toggle" onClick={() => setIsOpen(!isOpen)}>
@@ -54,7 +55,9 @@ const ChatHistory = () => {
               style={{ justifyContent: collapsed ? "center" : "flex-start" }}
               title={collapsed ? item.name : undefined}
             >
-              <FiMessageSquare className={`icon ${active === item ? "active" : ""}`} />
+              <FiMessageSquare
+                className={`icon ${active === item ? "active" : ""}`}
+              />
               {!collapsed && item.name}
             </button>
           ))}
