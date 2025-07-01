@@ -3,19 +3,19 @@ import Instance from "../lib/axios";
 import { useAuthStore } from "./useAuthStore";
 
 export const useChatStore = create((set, get) => ({
-  currentRoom: "HEhuSQRgmiqxQ5thF6te",
+  currentRoom: "6862d9abf4e8d12e8072b3bf",
   messages: [],
   chatRooms: [],
-  setCurrentRoom: () => {
-    const socket = useAuthStore.getState().socket;
-    const { currentRoom } = get();
-    if (socket && currentRoom) {
-      // Join new room
-      socket.emit("joinRoom", currentRoom);
-    }
+  // setCurrentRoom: () => {
+  //   const socket = useAuthStore.getState().socket;
+  //   const { currentRoom } = get();
+  //   if (socket && currentRoom) {
+  //     // Join new room
+  //     socket.emit("joinRoom", currentRoom);
+  //   }
 
-    set({ currentRoom: currentRoom });
-  },
+  //   set({ currentRoom: currentRoom });
+  // },
 
   getMessage: async () => {
     const { currentRoom } = get();
@@ -25,7 +25,8 @@ export const useChatStore = create((set, get) => ({
       const res = await Instance.post("/chat/getchats", {
         roomID: currentRoom,
       });
-      set({ messages: res.data });
+      set({ messages: res.data.messages });
+
     } catch (error) {
       const errorMessage =
         error.response?.data?.message ||

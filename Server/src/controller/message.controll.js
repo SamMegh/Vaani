@@ -10,7 +10,6 @@ const addToDB= async(senderid,name,msg, roomID)=>{
             name,
             message:msg
         });
-        if(!newMsg){console.log("unable to create message");}
         await newMsg.save();
 
         const chatroom = await Chatroom.findById(roomID);
@@ -82,6 +81,9 @@ export const getChats= async(req,res)=>{
     try {
         const {roomID}= req.body;
         const chatroom= await Chatroom.findById(roomID);
+        if (!chatroom) {
+      return res.status(404).json({ message: "Chatroom not found" });
+    }
         if (chatroom.admin.toString() !== req.user._id.toString()||!chatroom) {
             return res.status(401).json("Not your chatroom");
         }
