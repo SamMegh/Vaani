@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { LogOut } from 'lucide-react';
+import { LogOut, DatabaseBackup, BrainCircuit, UserPlus, Eraser, CircleUserRound } from 'lucide-react';
 import { useAuthStore } from '../store/useAuthStore';
 
 
@@ -23,24 +23,25 @@ const NavBar = () => {
                 <div className="navbar-list">
                     <div className="item">
                         <div className="navbar-item">
-
+                            <CircleUserRound />
                         </div>
                         <div className="navbar-item">
-
+                            <DatabaseBackup />
                         </div>
                         <div className="navbar-item">
-
+                            <BrainCircuit />
                         </div>
                         <div className="navbar-item">
-
+                            <Eraser />
                         </div>
-                        <div className="navbar-item">
 
+                        <div className="navbar-item">
+                            <UserPlus />
                         </div>
                     </div>
                     <div className="sating">
                         <div className="navbar-item navbar-item-signout" onClick={signout}><LogOut /></div>
-                        <img className="user-logo" src="../src/assets/images2/dragon_3.jpg" alt="User Logo" />
+                        {/* <img className="user-logo" src="../src/assets/images2/dragon_3.jpg" alt="User Logo" /> */}
                     </div>
                 </div>
             </nav>
@@ -58,9 +59,27 @@ const NavBar = () => {
                 </button>
 
                 <div className="buttons__ctas">
-                    <a className="buttons__cta" href="#"><i className="fa-brands fa-facebook-f"></i>Acount</a>
-                    <a className="buttons__cta" href="#"><i className="fa-brands fa-twitter"></i>Logout</a>
-                    <a className="buttons__cta" href="#"><i className="fa-brands fa-linkedin-in"></i>History</a>
+                    <div className="navbar-item buttons__cta">
+                        <CircleUserRound />
+                    </div>
+                    <div className="navbar-item buttons__cta">
+                        <DatabaseBackup />
+                    </div>
+                    <div className="navbar-item buttons__cta">
+                        <BrainCircuit />
+                    </div>
+                    <div className="navbar-item buttons__cta">
+                        <Eraser />
+                    </div>
+
+                    <div className="navbar-item buttons__cta">
+                        <UserPlus />
+                    </div>
+                    <div className="navbar-item buttons__cta" onClick={signout}>
+                        <LogOut />
+                    </div>
+
+
                 </div>
             </div>
 

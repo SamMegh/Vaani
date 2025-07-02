@@ -186,7 +186,7 @@ body {
   width: 45px;
   height: 45px;
   border-radius: 50%;
-  box-shadow: 2px 2px 2px #ff0000, -2px -2px 2px #00fbff;
+  box-shadow: 2px 2px 2px #ff0000;
 }
 
 .user-logo {
@@ -221,12 +221,12 @@ body {
   height: 40px;
   margin: 10px 0;
   border-radius: 50%;
-  border: 1px solid rgb(0, 0, 0);
   display: flex;
+  color: #000000;
   justify-content: center;
   align-items: center;
   transition: all 0.3s ease;
-  box-shadow: 2px 2px 2px #ff0000, -2px -2px 2px #00fbff;
+  box-shadow: 2px 2px 2px #00fbff;
   overflow: hidden;
   /* background-image: url('../src/assets/images2/dragon_9.jpg'); */
   background-size: cover;
@@ -238,7 +238,7 @@ body {
 }
 
 .navbar-item:hover {
-  background-color: #eaeaea;
+  color: #ff0000;
   transform: scale(1.1);
   cursor: pointer;
 }
@@ -289,31 +289,21 @@ body {
     display: flex;
     flex-direction: column;
     margin-top: 10px;
-
   }
 
   .buttons__cta {
     transition: opacity 0.4s ease, transform 0.4s ease;
     transform: translateX(-20px);
     opacity: 0;
-   display: flex;
-  align-items: center;
-  text-align: center;
-  justify-content: center;
-  gap: 8px;
-  /* background: none; */
-  font-family: Verdana, sans-serif;
-   box-shadow: 2px 2px 2px #00fbff;
-  border: none;
-  color: #000000;
-  font-size: 12px;
-  padding: 8px 0;
-  width: 100%;
-  cursor: pointer;
-  background: rgb(255, 255, 255);
-  margin: 14px 0;
-  padding: 8px;
-  border-radius: 5px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    gap: 8px;
+    /* cursor: pointer; */
+    background: rgb(0, 255, 229);
+    box-shadow: 3px 3px 3px #ff0000;
+    margin: 14px 0;
   }
 
   /* Active state with staggered delays */
@@ -334,9 +324,17 @@ body {
   .buttons--active .buttons__cta:nth-child(3) {
     transition-delay: 0.55s;
   }
+  .buttons--active .buttons__cta:nth-child(4) {
+    transition-delay: 0.75s;
+  }
+  .buttons--active .buttons__cta:nth-child(5) {
+    transition-delay: 0.95s;
+  }
+
+  
 
   .buttons__toggle--active {
-    background-color: #555;
+    background-color: #ffffff;
   }
 
 
@@ -725,7 +723,7 @@ body {
   font-size: 20px;
   cursor: pointer;
   margin-bottom: 8px;
-  
+
 }
 
 .sidebar h2 {
@@ -751,26 +749,30 @@ body {
   gap: 8px;
   /* background: none; */
   font-family: Verdana, sans-serif;
-   box-shadow: 2px 2px 2px #00fbff;
+  box-shadow: 2px 2px 2px #00fbff;
   border: none;
   color: #000000;
   font-size: 12px;
   padding: 8px 0;
   width: 100%;
   cursor: pointer;
-  background: rgb(255, 255, 255);
+  background: #00fbff;
   margin: 14px 0;
   padding: 4px;
   border-radius: 5px;
 }
 
+.chat-button:hover {
+  color: #ff00f7;
+  font-weight: bolder;
+}
 .chat-button.active {
   color: #ff0000;
 }
 
 .chat-button .icon {
   font-size: 16px;
-  color: #000000;
+
 }
 
 .icon.active {
@@ -787,13 +789,17 @@ body {
   margin: auto;
   height: auto;
   padding: 14px 0;
-  margin: 17px 0; 
-  border: black 1px solid;
+  margin: 17px 0;
+  border: rgb(255, 0, 0) 2px solid;
   border-radius: 8px;
-cursor: pointer;
+  cursor: pointer;
+  background-color: #00fbff;
 }
 
-
+.icon-new-chat:hover {
+  color: #ff0000;
+  border: none;
+}
 
 
 
@@ -825,18 +831,19 @@ cursor: pointer;
   flex: 1;
   padding: 24px;
 }
-@media (max-width: 1024px) {
+
+@media (max-width: 1025px) {
   .sidebar {
     width: 10vw;
-    margin: 35px 0;
     padding: 16px 4px 0 4px;
   }
+
   .icon-new-chat {
-padding: 6px 6px;
-width: fit-content;
-margin: 14px auto;
+    padding: 6px 6px;
+    width: fit-content;
+    margin: 14px auto 0 auto;
   }
-  
+
 }
 
 @media (max-width: 768px) {
@@ -851,6 +858,10 @@ margin: 14px auto;
 
   .toggle-collapse-btn {
     display: none;
+  }
+
+  .icon-new-chat {
+    margin: 60px auto 0 auto;
   }
 
 }
