@@ -40,9 +40,10 @@ const ChatHistory = () => {
           <FiMenu />
         </button>
 
-        {!collapsed && <h2>Chats</h2>}
+        {!collapsed && <h2></h2>}
 
         <div className="chat-list">
+          <div className="icon-new-chat">NEW</div>
           {chatRooms.map((item, idx) => (
             <button
               key={idx}
