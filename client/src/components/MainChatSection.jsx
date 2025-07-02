@@ -48,7 +48,7 @@ const MainChatSection = () => {
             className={
               msg.senderid === myId
                 ? "itsMeClass"
-                : msg.senderid === "AssitantReplyGroq"
+                : msg.senderid === "PrivateAssistantGroq"
                 ? "assistantclass"
                 : "otherUserClass"
             }
