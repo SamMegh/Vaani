@@ -10,6 +10,7 @@ const ChatHistory = () => {
     chatRooms,
     setCurrentRoom,
     getMessage,
+    createMsgCollection
   } = useChatStore();
 
   const [isOpen, setIsOpen] = useState(true);
@@ -43,7 +44,7 @@ const ChatHistory = () => {
         {!collapsed && <h2></h2>}
 
         <div className="chat-list">
-          <div className="icon-new-chat">NEW</div>
+          <div className="icon-new-chat" onClick={createMsgCollection}>NEW</div>
           {chatRooms.map((item, idx) => (
             <button
               key={idx}

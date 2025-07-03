@@ -38,9 +38,12 @@ export const useChatStore = create((set, get) => ({
 
   createMsgCollection: async () => {
     try {
-      const { setCurrentRoom}=get();
+      const {currentRoom, setCurrentRoom, messages}=get();
+      if ( currentRoom && (!messages || messages.length === 0)) return;
       const res = await Instance.get("/chat/newchatroom");
        setCurrentRoom(res.data);
+       set({messages:[]});
+       console.log(res.data)
       set({ currentRoom: res.data });
     } catch (error) {
       const errorMessage =
@@ -90,7 +93,7 @@ export const useChatStore = create((set, get) => ({
         await createMsgCollection();
         roomId = get().currentRoom;
       }
-
+      if(!roomId)return;
       await Instance.post("/chat/sendmessage", {
         senderid:isAuthuser._id,
         name:isAuthuser.name,
