@@ -3,7 +3,7 @@ import { useChatStore } from "../store/useChatStore.jsx";
 import { useAuthStore } from "../store/useAuthStore.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faWaveSquare } from "@fortawesome/free-solid-svg-icons";
-import OnLoader from "../components/OnLoder.jsx"; // ✅ Import your loader
+import OnLoader from "../components/OnLoder.jsx"; 
 
 const MainChatSection = () => {
   const { messages, sendMessage, getMessage ,realTimeConvertiate,deleteRealTimeConvertiate,getMessageLoader} = useChatStore();
@@ -53,7 +53,7 @@ const MainChatSection = () => {
                 : "otherUserClass"
             }
           >
-            <span className="msg-rol">{msg.name}</span>
+            <span className="msg-rol">{(msg.senderid === myId)?"You":msg.name}</span>
             <span className="msg-prompt">{msg.message}</span>
           </li>
         ))}

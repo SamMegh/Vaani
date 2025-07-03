@@ -63,6 +63,22 @@ export const useChatStore = create((set, get) => ({
       console.log(errorMessage);
     }
   },
+  shareChat: async (userId) => {
+    try {
+      const {currentRoom}=get();
+      await Instance.post("/chat/share",{
+        userId,
+        roomID:currentRoom
+      });
+      
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "Something went wrong!";
+      console.log(errorMessage);
+    }
+  },
 
   sendMessage: async (msg) => {
     const { currentRoom, createMsgCollection } = get();
@@ -93,7 +109,6 @@ export const useChatStore = create((set, get) => ({
   realTimeConvertiate: () => {
     const { currentRoom } = get();
     const socket = useAuthStore.getState().socket;
-    console.log(socket);
     if (!socket || !currentRoom) return;
     socket.on("newMsg", (newMsg) => {
       set((state) => ({

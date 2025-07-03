@@ -11,21 +11,29 @@ export const useAuthStore = create((set, get) => ({
   isLogin: false,
   isSignup: false,
   socket: null,
+  loginedData:null,
   login: async (data) => {
     set({ isLogin: true });
     try {
       const res = await Instance.post("/auth/signin", data);
-      set({ isAuthuser: res.data });
+      set({ loginedData: res.data });
       get().connectSocket();
+      return true;
     } catch (error) {
       const errorMessage =
         error.response?.data?.message ||
         error.message ||
         "Something went wrong!";
       console.log(errorMessage);
+      return null;
     } finally {
       set({ isLogin: false });
     }
+  },
+
+  setAuth:()=>{
+    const {loginedData}=get();
+    set({isAuthuser:loginedData})
   },
 
   signup: async (data) => {
