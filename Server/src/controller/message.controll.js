@@ -50,7 +50,7 @@ export const sendMessage = async (req, res) => {
         const { senderid, name, msg, roomID } = req.body;
         await addToDB(senderid, name, msg, roomID)
         const aiResponse = await chatcomplete(msg);
-        await addToDB("PrivateAssistantGroq", "Assistant", aiResponse, roomID);
+        await addToDB("PrivateAssistantGroq", "Vaani", aiResponse, roomID);
         res.status(200).json("message added successful");
     } catch (error) {
         res.status(500).json({ message: 'Internal server error' + error });
