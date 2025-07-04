@@ -3,14 +3,21 @@ import { useChatStore } from "../store/useChatStore.jsx";
 import { useAuthStore } from "../store/useAuthStore.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faWaveSquare } from "@fortawesome/free-solid-svg-icons";
-import OnLoader from "../components/OnLoder.jsx"; 
-
+import OnLoader from "../components/OnLoder.jsx";
+import Linkify from "linkify-react";
 const MainChatSection = () => {
-  const { messages, sendMessage, getMessage ,realTimeConvertiate,deleteRealTimeConvertiate,getMessageLoader} = useChatStore();
+  const {
+    messages,
+    sendMessage,
+    getMessage,
+    realTimeConvertiate,
+    deleteRealTimeConvertiate,
+    getMessageLoader,
+  } = useChatStore();
   const { isAuthuser } = useAuthStore();
   const myId = isAuthuser._id;
 
-  const [msg, setMsg] = useState("");// ✅ Loader state
+  const [msg, setMsg] = useState(""); // ✅ Loader state
 
   const messageBodyRef = useRef(null);
 
@@ -20,10 +27,8 @@ const MainChatSection = () => {
     if (messageBodyRef.current) {
       messageBodyRef.current.scrollTop = messageBodyRef.current.scrollHeight;
     }
-    return()=>deleteRealTimeConvertiate();
-  }, [ getMessage, messages,realTimeConvertiate,deleteRealTimeConvertiate]);
-
-
+    return () => deleteRealTimeConvertiate();
+  }, [getMessage, messages, realTimeConvertiate, deleteRealTimeConvertiate]);
 
   const handleSend = () => {
     if (msg.trim()) {
@@ -41,7 +46,7 @@ const MainChatSection = () => {
     <div className="chat-main">
       <div className="message-body" ref={messageBodyRef}>
         <h1 className="message-title">Chats</h1>
-        
+
         {messages.map((msg, index) => (
           <li
             key={msg._id || index}
@@ -53,8 +58,19 @@ const MainChatSection = () => {
                 : "otherUserClass"
             }
           >
-            <span className="msg-rol">{(msg.senderid === myId)?"You":msg.name}</span>
-            <span className="msg-prompt">{msg.message}</span>
+            <span className="msg-rol">
+              {msg.senderid === myId ? "You" : msg.name}
+            </span>
+            <span className="msg-prompt">
+              <Linkify
+                options={{
+                  className: "linkify-class", 
+                  target: "_blank",
+                }}
+              >
+                {msg.message}
+              </Linkify>
+            </span>
           </li>
         ))}
       </div>
