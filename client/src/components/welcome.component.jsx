@@ -15,7 +15,7 @@ const Welcome = () => {
         }
         .welcome-body {
           font-family: "Segoe UI", sans-serif;
-          background-color: whitesmoke;
+          background-color: white;
           display: flex;
           text-align: center;
           justify-content: center;
