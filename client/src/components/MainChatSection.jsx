@@ -62,14 +62,9 @@ const MainChatSection = () => {
               {msg.senderid === myId ? "You" : msg.name}
             </span>
             <span className="msg-prompt">
-              <Linkify
-                options={{
-                  className: "linkify-class", 
-                  target: "_blank",
-                }}
-              >
+              <div>
                 {msg.message}
-              </Linkify>
+              </div>
             </span>
           </li>
         ))}

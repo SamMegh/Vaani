@@ -12,7 +12,11 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: rgb(255, 255, 255)
+  background-color: rgba(0, 0, 0, 0.904);
+  background-image: url('../public/model.png');
+  background-size: 680px;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .main-loading-icon {
@@ -324,14 +328,16 @@ body {
   .buttons--active .buttons__cta:nth-child(3) {
     transition-delay: 0.55s;
   }
+
   .buttons--active .buttons__cta:nth-child(4) {
     transition-delay: 0.75s;
   }
+
   .buttons--active .buttons__cta:nth-child(5) {
     transition-delay: 0.95s;
   }
 
-  
+
 
   .buttons__toggle--active {
     background-color: #ffffff;
@@ -393,25 +399,28 @@ body {
 .chat-main {
   position: relative;
   display: flex;
+  margin: auto;
   justify-content: center;
   align-items: center;
   text-align: center;
   flex-direction: column;
+  gap: 5px;
   width: 80vw;
   height: 98vh;
   margin: 0.5rem 0 0 0;
-
+  background-color: #30303088;
+  backdrop-filter: blur(4px);
+  border-radius: 20px;
 }
 
 
 
 .message-body {
-  position: absolute;
-  top: 0;
+  position: relative;
+
   border-radius: 10px;
   width: 80vw;
-  height: 80vh;
-  background-color: #ffffff;
+  height: 90vh;
   overflow: scroll;
   overflow-y: scroll;
   overflow-x: hidden;
@@ -423,16 +432,16 @@ body {
 
 
 .message-input {
-  position: absolute;
+  position: relative;
   bottom: 0;
   width: 80vw;
-  height: 17vh;
+  height: 10vh;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   border-radius: 10px;
-  background-color: #ffffff;
+  color: #000000;
 }
 
 .message-title {
@@ -440,7 +449,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #ffffff;
   box-shadow: 3px 3px 3px #a3b1c6, -3px -3px 3px #fff0f0;
   margin: 0 0 0.5rem 0;
   position: sticky;
@@ -496,7 +504,8 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.linkify-class{
+
+.linkify-class {
   color: rgb(0, 0, 0);
   text-decoration: none;
   font-size: 1.1rem;
@@ -772,6 +781,7 @@ body {
   color: #ff00f7;
   font-weight: bolder;
 }
+
 .chat-button.active {
   color: #ff0000;
 }

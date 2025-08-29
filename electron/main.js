@@ -15,7 +15,7 @@ function createWindow() {
     if (isDev) {
         win.loadURL("http://localhost:5173/")
     } else{
-        win.loadFile(path.join(__dirname,"builder/index.html"))
+        mainWindow.loadFile(path.join(__dirname, "builder", "assets", "index.html"));
     }
 }
 
