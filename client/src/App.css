@@ -190,7 +190,11 @@ body {
   width: 45px;
   height: 45px;
   border-radius: 50%;
-  box-shadow: 2px 2px 2px #ff0000;
+  box-shadow: 2px 2px 2px #fff;
+/*
+  background-color: #30303088;
+  backdrop-filter: blur(4px); 
+  */
 }
 
 .user-logo {
@@ -209,7 +213,8 @@ body {
 
   /* box-shadow: 3px 3px 3px #a3b1c6, -3px -3px 3px #fff0f0; */
 
-  background-color: #ffffff;
+  background-color: #30303088;
+  backdrop-filter: blur(4px);
   flex-grow: 1;
 }
 
@@ -226,11 +231,11 @@ body {
   margin: 10px 0;
   border-radius: 50%;
   display: flex;
-  color: #000000;
+  color: #fff;
   justify-content: center;
   align-items: center;
   transition: all 0.3s ease;
-  box-shadow: 2px 2px 2px #00fbff;
+  border: 2px solid white;
   overflow: hidden;
   /* background-image: url('../src/assets/images2/dragon_9.jpg'); */
   background-size: cover;
@@ -414,28 +419,32 @@ body {
 }
 
 
-
 .message-body {
   position: relative;
-
   border-radius: 10px;
   width: 80vw;
   height: 90vh;
-  overflow: scroll;
   overflow-y: scroll;
   overflow-x: hidden;
-  scroll-behavior: smooth;
+  /* remove scroll-behavior: smooth for JS momentum */
   -webkit-overflow-scrolling: touch;
+  /* keep for mobile */
   scrollbar-width: none;
+  /* hide scrollbar */
+  scroll-snap-type: none;
+  /* prevent snapping while momentum scrolling */
 }
 
-
+.message-body::-webkit-scrollbar {
+  display: none;
+}
 
 .message-input {
   position: relative;
   bottom: 0;
   width: 80vw;
   height: 10vh;
+  margin-bottom: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -450,13 +459,16 @@ body {
   justify-content: center;
   align-items: center;
   box-shadow: 3px 3px 3px #a3b1c6, -3px -3px 3px #fff0f0;
+  backdrop-filter: blur(8px);
   margin: 0 0 0.5rem 0;
   position: sticky;
   top: 0;
   z-index: 10;
   font-family: 'AlphaWood';
   font-size: 2rem;
-  color: #000000;
+  color: white;
+  /* default */
+  mix-blend-mode: difference;
   text-transform: uppercase;
 }
 
@@ -482,6 +494,7 @@ body {
   background-color: #000000;
   color: white;
   border-radius: 4px;
+  user-select: none;
   box-shadow: 3px 3px 3px #77ff00, -5px -5px 5px #00e1ff;
 
 }
@@ -491,7 +504,7 @@ body {
   font-weight: 100;
   font-family: sans-serif;
   text-align: left;
-  padding: 5px 10px 5px 10px;
+  padding: 10px;
   margin: 0 5px 0 5px;
   white-space: pre-wrap;
   word-wrap: break-word;
@@ -603,7 +616,7 @@ body {
   .assistantclass .msg-rol {
     display: flex;
     flex-direction: column;
-    width: 300px;
+    width: 200px;
     height: fit-content;
     justify-content: center;
     margin: 10px auto;
@@ -668,7 +681,7 @@ body {
 
 .styles-icon {
   margin: 0 8px;
-  color: #ff0000;
+  color: #fff;
   cursor: pointer;
   /* cursor: url('../src/assets/images2/model.png'), url('../src/assets/images2/dragon_9.jpg'), url('../src/assets/images2/dragon_9.jpg'), auto; */
 }
@@ -711,9 +724,12 @@ body {
 
 .sidebar {
   width: 8vw;
-  /* background-color: #ffffff; */
+  background-color: #30303088;
+  backdrop-filter: blur(4px);
   color: #000000;
   display: flex;
+  margin: 10px;
+  border-radius: 40px 40px;
   flex-direction: column;
   padding: 16px 16px 0 16px;
   gap: 10px;
@@ -734,7 +750,7 @@ body {
 .toggle-collapse-btn {
   background: none;
   border: none;
-  color: #000000;
+  color: #fff;
   font-size: 20px;
   cursor: pointer;
   margin-bottom: 8px;
@@ -764,14 +780,13 @@ body {
   gap: 8px;
   /* background: none; */
   font-family: Verdana, sans-serif;
-  box-shadow: 2px 2px 2px #00fbff;
   border: none;
   color: #000000;
   font-size: 12px;
   padding: 8px 0;
   width: 100%;
   cursor: pointer;
-  background: #00fbff;
+  background: #fff;
   margin: 14px 0;
   padding: 4px;
   border-radius: 5px;
@@ -806,10 +821,9 @@ body {
   height: auto;
   padding: 14px 0;
   margin: 17px 0;
-  border: rgb(255, 0, 0) 2px solid;
   border-radius: 8px;
   cursor: pointer;
-  background-color: #00fbff;
+  background-color: #fff;
 }
 
 .icon-new-chat:hover {
