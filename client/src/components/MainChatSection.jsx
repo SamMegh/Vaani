@@ -6,18 +6,13 @@ import { faPlus, faWaveSquare } from "@fortawesome/free-solid-svg-icons";
 import OnLoader from "../components/OnLoder.jsx";
 
 const MainChatSection = () => {
-  const { messages, sendMessage, getMessage, realTimeConvertiate, deleteRealTimeConvertiate, getMessageLoader } = useChatStore();
+  const { messages, sendMessage, getMessage, currentRoom, realTimeConvertiate, deleteRealTimeConvertiate, getMessageLoader } = useChatStore();
   const { isAuthuser } = useAuthStore();
   const myId = isAuthuser._id;
 
   const [msg, setMsg] = useState("");
   const messageBodyRef = useRef(null);
-
-  // Momentum scroll state
-  const velocityRef = useRef(0);
-  const rafRef = useRef(null);
   const lastYRef = useRef(0);
-  const isDraggingRef = useRef(false);
 
   useEffect(() => {
     realTimeConvertiate();
@@ -39,56 +34,8 @@ const MainChatSection = () => {
     }
   };
 
-  // Momentum scroll effect
-  useEffect(() => {
-    const el = messageBodyRef.current;
-    if (!el) return;
 
-    const onScroll = () => {
-      const currentY = el.scrollTop;
-      velocityRef.current = currentY - lastYRef.current;
-      lastYRef.current = currentY;
-    };
-
-    const handlePointerDown = () => {
-      isDraggingRef.current = true;
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
-
-    const handlePointerUp = () => {
-      isDraggingRef.current = false;
-      startMomentumScroll();
-    };
-
-    const startMomentumScroll = () => {
-      const decay = 0.95; // friction factor
-      const step = () => {
-        if (!el || isDraggingRef.current) return;
-        velocityRef.current *= decay;
-        el.scrollTop += velocityRef.current;
-        if (Math.abs(velocityRef.current) > 0.5) rafRef.current = requestAnimationFrame(step);
-      };
-      rafRef.current = requestAnimationFrame(step);
-    };
-
-    // Mouse + touch support
-    el.addEventListener("scroll", onScroll);
-    el.addEventListener("mousedown", handlePointerDown);
-    el.addEventListener("touchstart", handlePointerDown);
-    window.addEventListener("mouseup", handlePointerUp);
-    window.addEventListener("touchend", handlePointerUp);
-
-    return () => {
-      el.removeEventListener("scroll", onScroll);
-      el.removeEventListener("mousedown", handlePointerDown);
-      el.removeEventListener("touchstart", handlePointerDown);
-      window.removeEventListener("mouseup", handlePointerUp);
-      window.removeEventListener("touchend", handlePointerUp);
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
-  }, []);
-
-  if (getMessageLoader) return <OnLoader />;
+  if (getMessageLoader || !currentRoom) return <OnLoader />;
 
   return (
     <div className="chat-main">
