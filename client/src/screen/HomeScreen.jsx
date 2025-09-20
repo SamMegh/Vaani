@@ -1,5 +1,5 @@
 
-import NavBar from "../components/navBar";
+import NavBar from "../components/NavBar.jsx";
 import MainChatSection from "../components/MainChatSection";
 import ChatHistory from "../components/ChatHistory";
 function HomeScreen() {

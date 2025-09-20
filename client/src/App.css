@@ -13,7 +13,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: rgba(0, 0, 0, 0.904);
-  background-image: url('../public/model.png');
+  background-image: url('./model.png');
   background-size: 680px;
   background-repeat: no-repeat;
   background-position: center;
@@ -191,31 +191,10 @@ body {
   height: 45px;
   border-radius: 50%;
   box-shadow: 2px 2px 2px #fff;
-/*
-  background-color: #30303088;
-  backdrop-filter: blur(4px); 
-  */
 }
 
 .user-logo {
   margin-bottom: 0px;
-}
-
-.navbar-list {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  width: 55px;
-  border-radius: 50px;
-  padding: 20px 0 20px 0;
-  margin: 0.5rem 0;
-
-  /* box-shadow: 3px 3px 3px #a3b1c6, -3px -3px 3px #fff0f0; */
-
-  background-color: #30303088;
-  backdrop-filter: blur(4px);
-  flex-grow: 1;
 }
 
 .item,
@@ -229,8 +208,19 @@ body {
 .buttons {
   display: none;
 }
-
-
+.dialog-content{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.dialog{
+  position: absolute;
+}
 @media screen and (max-width: 780px) {
   .navbar {
     position: absolute;
@@ -254,25 +244,13 @@ body {
     flex-direction: column;
     align-items: flex-start;
   }
-
-  .buttons__toggle {
-    background-image: url('../src/assets/images2/dragon_9.jpg');
-    background-size: cover;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 18px;
-    width: 38px;
-    height: 38px;
-    box-shadow: 3px 3px 3px #ff0000, -5px -5px 5px #00fbff;
-  }
 }
 
 
 .chat-main {
   position: relative;
+  z-index: 1;
+  top: 0;
   display: flex;
   margin: auto;
   justify-content: center;
@@ -812,7 +790,7 @@ body {
   inset: 12%;
   border-radius: 50%;
   background: #ffffff;
-  background-image: url('../public/model.png');
+  background-image: url('./model.png');
   background-size: cover;
 
 }
