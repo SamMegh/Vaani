@@ -66,6 +66,7 @@ const MainChatSection = () => {
             value={msg}
             onChange={(e) => setMsg(e.target.value)}
             className="styles-input"
+            minLength={1}
             rows={2}
           />
           <FontAwesomeIcon icon={faWaveSquare} className="fas fa-wave-square styles-icon" onClick={handleSend} />

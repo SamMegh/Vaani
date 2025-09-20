@@ -1,5 +1,13 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "./App.css";
+
+// Prevent scrolling and ensure all content fits
+const noScrollStyle = {
+  height: "100vh",
+  width: "100vw",
+  overflow: "hidden",
+  position: "relative"
+};
 import HomeScreen from "./screen/HomeScreen";
 import { useAuthStore } from "./store/useAuthStore";
 import LoginScreen from "./screen/LoginScreen";
@@ -20,7 +28,7 @@ if(isCheckauth&& !isAuthuser)return(
     </div>
 )
   return (
-    <>
+    <div style={noScrollStyle}>
       <BrowserRouter>
         <Routes>
           <Route
@@ -37,7 +45,7 @@ if(isCheckauth&& !isAuthuser)return(
           />
         </Routes>
       </BrowserRouter>
-    </>
+    </div>
   );
 }
 

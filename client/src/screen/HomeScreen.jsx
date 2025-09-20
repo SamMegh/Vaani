@@ -6,7 +6,7 @@ function HomeScreen() {
  
 
   return (
-    <div className="main-div">
+    <div className="main-div" style={{ display: "flex", height: "100vh" }}>
       <NavBar/>
       <MainChatSection/>
       <ChatHistory/>
