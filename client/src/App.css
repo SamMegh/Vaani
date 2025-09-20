@@ -225,32 +225,6 @@ body {
   align-items: center;
 }
 
-.navbar-item {
-  width: 40px;
-  height: 40px;
-  margin: 10px 0;
-  border-radius: 50%;
-  display: flex;
-  color: #fff;
-  justify-content: center;
-  align-items: center;
-  transition: all 0.3s ease;
-  border: 2px solid white;
-  overflow: hidden;
-  /* background-image: url('../src/assets/images2/dragon_9.jpg'); */
-  background-size: cover;
-}
-
-.navbar-item-logo {
-  width: auto;
-  height: auto;
-}
-
-.navbar-item:hover {
-  color: #ff0000;
-  transform: scale(1.1);
-  cursor: pointer;
-}
 
 .buttons {
   display: none;
@@ -259,14 +233,15 @@ body {
 
 @media screen and (max-width: 780px) {
   .navbar {
-    display: none;
+    position: absolute;
+    top: 2;
+    left: 5;
   }
 
   .navbar-logo {
     width: 38px;
     height: 38px;
     border-radius: 50%;
-    box-shadow: 3px 3px 3px #ff0000, -5px -5px 5px #00fbff;
   }
 
   .buttons {
@@ -293,111 +268,6 @@ body {
     height: 38px;
     box-shadow: 3px 3px 3px #ff0000, -5px -5px 5px #00fbff;
   }
-
-  .buttons__ctas {
-    display: flex;
-    flex-direction: column;
-    margin-top: 10px;
-  }
-
-  .buttons__cta {
-    transition: opacity 0.4s ease, transform 0.4s ease;
-    transform: translateX(-20px);
-    opacity: 0;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    justify-content: center;
-    gap: 8px;
-    /* cursor: pointer; */
-    background: rgb(0, 255, 229);
-    box-shadow: 3px 3px 3px #ff0000;
-    margin: 14px 0;
-  }
-
-  /* Active state with staggered delays */
-  .buttons--active .buttons__cta {
-    opacity: 1;
-    transform: translateX(0);
-    pointer-events: auto;
-  }
-
-  .buttons--active .buttons__cta:nth-child(1) {
-    transition-delay: 0.15s;
-  }
-
-  .buttons--active .buttons__cta:nth-child(2) {
-    transition-delay: 0.35s;
-  }
-
-  .buttons--active .buttons__cta:nth-child(3) {
-    transition-delay: 0.55s;
-  }
-
-  .buttons--active .buttons__cta:nth-child(4) {
-    transition-delay: 0.75s;
-  }
-
-  .buttons--active .buttons__cta:nth-child(5) {
-    transition-delay: 0.95s;
-  }
-
-
-
-  .buttons__toggle--active {
-    background-color: #ffffff;
-  }
-
-
-
-
-
-
-  /* .navbar {
-    position: fixed;
-    flex-direction: row;
-    width: 100vw;
-    height: 60px;
-    top: 0;
-    top: auto;
-    flex-wrap: nowrap;
-    display: none;
-  }
-
-  .navbar-title {
-    width: 10%;
-  }
-
-  .navbar-list {
-    flex-direction: row;
-    justify-content: space-around;
-    width: auto;
-    box-shadow: none;
-    padding: 0;
-    background-color: transparent;
-  }
-
-  .item,
-  .sating {
-    flex-direction: row;
-    gap: 10px;
-  }
-
-  .navbar-item {
-    width: 30px;
-    height: 30px;
-    margin: 0;
-  }
-
-
-
-  .navbar-logo,
-  .user-logo {
-    width: 30px;
-    height: 30px;
-    margin-bottom: 0px;
-  } */
-
 }
 
 
@@ -714,7 +584,7 @@ body {
   top: 12px;
   right: 12px;
   background: #ffffff;
-  box-shadow: 3px 3px 3px #77ff00, -5px -5px 5px #00e1ff;
+  box-shadow: 1px 1px 3px #77ff00, -2px 0px 9px #00e1ff;
   color: #000000;
   padding: 8px;
   z-index: 1000;
