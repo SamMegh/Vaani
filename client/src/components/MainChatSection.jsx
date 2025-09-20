@@ -124,6 +124,12 @@ const MainChatSection = () => {
             className="styles-input"
             minLength={1}
             rows={2}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && e.shiftKey) {
+                e.preventDefault();
+                handleSend();
+              }
+            }}
           />
           <FontAwesomeIcon icon={faWaveSquare} className="fas fa-wave-square styles-icon" onClick={handleSend} />
         </div>
