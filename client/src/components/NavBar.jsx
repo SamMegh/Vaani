@@ -1,22 +1,31 @@
 import { ClipboardCopy, LogOut } from "lucide-react";
 import { useAuthStore } from "../store/useAuthStore";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const NavBar = () => {
   const [dialogOpen, setDialogOpen] = useState(true);
   const [showEffect, setShowEffect] = useState(false);
   const { signout, isAuthuser } = useAuthStore();
+  const dialogRef = useRef(null);
 
-  // Show dialog with effect and auto-close
+  // Show dialog with effect
   const openDialog = () => {
     setDialogOpen(true);
     setTimeout(() => setShowEffect(true), 10); // trigger effect
-    setTimeout(() => {
-      setShowEffect(false);
-      setDialogOpen(false);
-    }, 250000); // auto-close after 2.5s
   };
 
+  // Click outside handler
+  useEffect(() => {
+    if (!dialogOpen) return;
+    function handleClickOutside(event) {
+      if (dialogRef.current && !dialogRef.current.contains(event.target)) {
+        setShowEffect(false);
+        setDialogOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [dialogOpen]);
   return (
     <div>
       <nav className="navbar">
@@ -29,6 +38,7 @@ const NavBar = () => {
           />
           {dialogOpen && (
             <div
+              ref={dialogRef}
               className={`dialog${showEffect ? " dialog-fade-in" : ""}`}
               style={{
                 position: "absolute",
@@ -38,9 +48,23 @@ const NavBar = () => {
                 zIndex: 100,
                 transition: "opacity 0.4s",
                 opacity: showEffect ? 1 : 0,
+                background: "rgba(255,255,255,0.18)",
+                borderRadius: "18px",
+                boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
+                backdropFilter: "blur(12px)",
+                WebkitBackdropFilter: "blur(12px)",
+                border: "1px solid rgba(255,255,255,0.28)",
               }}
             >
-              <div className="dialog-content">
+              <div className="dialog-content" style={{
+                background: "rgba(255,255,255,0.18)",
+                borderRadius: "18px",
+                boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
+                backdropFilter: "blur(12px)",
+                WebkitBackdropFilter: "blur(12px)",
+                border: "1px solid rgba(255,255,255,0.28)",
+                padding: "24px 32px"
+              }}>
                 <button
                   style={{
                     position: "absolute",
@@ -84,7 +108,6 @@ const NavBar = () => {
                           document.execCommand("copy");
                           document.body.removeChild(tempInput);
                         }
-
                         alert("UID copied!");
                       }
                     }}
@@ -92,21 +115,34 @@ const NavBar = () => {
                     <ClipboardCopy size={15} />
                   </span>
                 </p>
-                <div
+                <button
                   style={{
                     display: "flex",
-                    backgroundColor: "red",
-                    color: "white",
-                    fontSize: "12px",
-                    padding: "3px",
-                    borderRadius: "4px",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    background: "rgba(255,255,255,0.18)",
+                    color: "#d32f2f",
+                    fontWeight: "bold",
+                    fontSize: "15px",
+                    padding: "5px 24px",
+                    borderRadius: "12px",
+                    border: "1px solid rgba(255,255,255,0.28)",
+                    boxShadow: "0 2px 8px rgba(31,38,135,0.18)",
+                    cursor: "pointer",
+                    transition: "background 0.3s, color 0.3s"
                   }}
                   onClick={signout}
+                  onMouseOver={e => {
+                    e.currentTarget.style.background = "rgba(211,47,47,0.18)";
+                    e.currentTarget.style.color = "#fff";
+                  }}
+                  onMouseOut={e => {
+                    e.currentTarget.style.background = "rgba(255,255,255,0.18)";
+                    e.currentTarget.style.color = "#d32f2f";
+                  }}
                 >
-                  <center>
-                    LogOut <LogOut />
-                  </center>
-                </div>
+                  LogOut&nbsp;<LogOut />
+                </button>
               </div>
             </div>
           )}
@@ -114,6 +150,6 @@ const NavBar = () => {
       </nav>
     </div>
   );
-};
+}
 
 export default NavBar;
