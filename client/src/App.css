@@ -52,7 +52,8 @@ body {
   border-radius: 10px;
   box-shadow: 10px 10px 10px #a3b1c6, -10px -10px 10px #fff0f0;
   width: 25%;
-  height: 45%;
+  min-height: 50%;
+  height: fit-content;
 }
 
 /* .Login-card:hover {
