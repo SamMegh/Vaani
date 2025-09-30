@@ -1,50 +1,51 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import "./App.css";
-
-// Prevent scrolling and ensure all content fits
-const noScrollStyle = {
-  height: "100vh",
-  width: "100vw",
-  overflow: "hidden",
-  position: "relative"
-};
+import { useEffect, useState, useRef } from "react";
+import "./index.css";
+import gsap from "gsap";
+import ScrollSmoother from "gsap/ScrollSmoother";
+import ScrollTrigger from "gsap/ScrollTrigger";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import HomeScreen from "./screen/HomeScreen";
-import { useAuthStore } from "./store/useAuthStore";
 import LoginScreen from "./screen/LoginScreen";
-import SignUp from "./screen/SignUpScreen";
-import { Loader } from 'lucide-react'
-import { useEffect } from "react";
+import SignUpScreen from "./screen/SignUpScreen";
+import { useAuthStore } from "./store/useAuthStore";
+
+gsap.registerPlugin(ScrollSmoother, ScrollTrigger);
 
 function App() {
-  const { isAuthuser,checkauth,isCheckauth } = useAuthStore();
+const{isAuthuser}=useAuthStore();
 
-    useEffect(() => {
-    checkauth();
-    
-  }, [checkauth]);
-if(isCheckauth&& !isAuthuser)return(
-  <div className='main-loading-icon'>
-    <Loader size={30}/>
-    </div>
-)
+  useEffect(() => {
+    const smoother = ScrollSmoother.create({
+      wrapper: "#smooth-wrapper",
+      content: "#smooth-content",
+      smooth: 3,
+      effects: true,
+      });
+
+    return () => smoother.kill();
+  }, []);
+
   return (
-    <div style={noScrollStyle}>
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path="/"
-            element={isAuthuser ? <HomeScreen /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/login"
-            element={!isAuthuser ? <LoginScreen /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/signup"
-            element={!isAuthuser ? <SignUp /> : <Navigate to="/" />}
-          />
-        </Routes>
-      </BrowserRouter>
+    <div id="smooth-wrapper" className="overflow-x-hidden">
+
+          <div id="smooth-content">
+            <BrowserRouter>
+                <Routes>
+                    <Route
+                        path="/"
+                        element={isAuthuser ? <HomeScreen /> : <Navigate to="/login" />}
+                    />
+                    <Route
+                        path="/login"
+                        element={!isAuthuser ? <LoginScreen /> : <Navigate to="/" />}
+                    />
+                    <Route
+                        path="/signup"
+                        element={!isAuthuser ? <SignUpScreen /> : <Navigate to="/" />}
+                    />
+                </Routes>
+            </BrowserRouter>
+        </div>
     </div>
   );
 }

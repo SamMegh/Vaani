@@ -16,6 +16,7 @@
     "@tailwindcss/vite": "^4.1.13",
     "axios": "^1.10.0",
     "framer-motion": "^12.23.16",
+    "gsap": "^3.13.0",
     "linkify-react": "^4.3.1",
     "lucide-react": "^0.523.0",
     "react": "^19.1.0",

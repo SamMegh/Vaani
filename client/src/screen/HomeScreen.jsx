@@ -1,8 +1,6 @@
 import React from 'react';
-import NavBar from "../components/NavBar.jsx";
-import MainChatSection from "../components/MainChatSection";
-import ChatHistory from "../components/ChatHistory";
 import { SidebarProvider, useSidebar } from "../context/SidebarContext.jsx";
+import Navbar from '../components/navbar.component.jsx';
 
 function HomeScreenContent() {
   const { getSidebarWidth } = useSidebar();
@@ -10,17 +8,17 @@ function HomeScreenContent() {
   return (
     <div className="flex h-screen w-full overflow-hidden">
       {/* NavBar - positioned to not interfere with layout */}
-      <NavBar />
+      <Navbar />
 
       {/* ChatHistory - fixed positioned, handles its own visibility */}
-      <ChatHistory />
+      {/* <ChatHistory /> */}
       
       {/* MainChatSection - takes remaining space, with responsive margin for sidebar */}
       <div 
         className="flex-1 transition-all duration-300 ease-in-out"
         style={{ marginLeft: getSidebarWidth() }}
       >
-        <MainChatSection />
+        {/* <MainChatSection /> */}
       </div>
     </div>
   );
