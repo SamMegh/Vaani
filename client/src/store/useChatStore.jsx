@@ -122,6 +122,7 @@ export const useChatStore = create((set, get) => ({
 
   deleteRealTimeConvertiate: () => {
     const socket = useAuthStore.getState().socket;
+    if (!socket) return;
     socket.off("newMsg");
   },
   
