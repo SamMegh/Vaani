@@ -8,7 +8,7 @@ const NavBarInner = () => (
       <nav className="nav-bar-main-box flex items-center justify-between  overflow-hidden">
         {/* Center links */}
         <div className="hidden w-fit bg-white/6 bg-opacity-60 p-3 rounded-2xl px-8 backdrop-blur-sm  md:flex items-center gap-6">
-          <a className="text-white/90 hover:underline">Get started</a>
+          <a href="/signup" className="text-white/90 hover:underline">Get started</a>
           <a
             href="https://github.com/SamMegh/Vaani/blob/main/docs/PROJECT_DOCS.md"
             target="_blank"
@@ -143,9 +143,8 @@ function LandingScreen() {
                 </p>
 
                 <div className="flex flex-wrap gap-4 mt-6">
-                  {/* todo: add login page here */}
                   <a
-                    href="#get-started"
+                    href="/signup"
                     className="inline-flex items-center gap-3 bg-white text-black px-5 py-3 rounded-xl font-semibold shadow-lg hover:scale-[0.995] transition"
                   >
                     Get started
@@ -375,7 +374,9 @@ fetch('/chat/sendmessage', {
                     <li>✔ Limited history</li>
                     <li>✔ Community support</li>
                   </ul>
-                  <button className="w-full py-3 rounded-xl bg-white/10 text-white hover:bg-white/20 transition">
+                  <button onClick={()=>{
+                    window.location.href="/signup"
+                  }} className="w-full py-3 rounded-xl bg-white/10 text-white hover:bg-white/20 transition">
                     Get Started
                   </button>
                 </div>

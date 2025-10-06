@@ -8,9 +8,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: rgba(0, 0, 0, 0.904);
-  background-size: 680px;
-  background-repeat: no-repeat;
-  background-position: center;
+
 }
 
 .main-loading-icon {
@@ -23,6 +21,9 @@ body {
 .main-div {
   display: flex;
   background-image: url('./model.png');
+    background-size: 680px;
+  background-repeat: no-repeat;
+  background-position: center;
   justify-content: space-between;
   flex-direction: row;
   height: 100vh;
