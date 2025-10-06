@@ -1,11 +1,19 @@
-import React from "react";
-import ReactDOM from 'react-dom';
+import React, { useEffect, useState } from "react";
+import ReactDOM from "react-dom";
 import gsap from "gsap";
+
 const NavBarInner = () => (
-  <header className="fixed w-fit inset-x-0 top-0 z-[9999] py-3 ">
+  <header className="fixed inset-x-0 top-0 z-[9999] py-3">
     <div className="max-w-7xl mx-auto px-6">
-      <nav className="flex items-center justify-end p-3 rounded-2xl bg-white/6 bg-opacity-60 px-8 backdrop-blur-sm">
-        <div className="hidden md:flex items-center gap-4">
+      <nav className="nav-bar-main-box flex items-center justify-between p-3 rounded-2xl bg-white/6 bg-opacity-60 px-8 backdrop-blur-sm overflow-hidden">
+        {/* Left / brand area (optional) */}
+        <div className="flex items-center gap-4">
+          <div className="text-white font-bold">Vaani</div>
+          <div className="hidden sm:block text-white/80">Build better conversations</div>
+        </div>
+
+        {/* Center links */}
+        <div className="hidden md:flex items-center gap-6">
           <a className="text-white/90 hover:underline">Get started</a>
           <a
             href="https://github.com/SamMegh/Vaani/blob/main/docs/PROJECT_DOCS.md"
@@ -23,6 +31,10 @@ const NavBarInner = () => (
           >
             GitHub
           </a>
+        </div>
+
+        {/* Right: Contact + Login */}
+        <div className="flex items-center gap-4">
           <a
             onClick={(e) => {
               e.preventDefault();
@@ -37,17 +49,12 @@ const NavBarInner = () => (
           >
             Contact
           </a>
-        </div>
 
-        <div className="md:hidden">
-          {/* mobile simple menu link */}
-          {/* todo: add login page here */}
-          <a
-            href=""
-            className="text-white/90 px-3 py-2 bg-white/6 rounded"
-          >
-            Start
-          </a>
+          <a href="/login" className="text-white/90 border border-white/10 px-3 py-2 rounded-md">Login</a>
+
+          <div className="md:hidden">
+            <a href="" className="text-white/90 px-3 py-2 bg-white/6 rounded">Start</a>
+          </div>
         </div>
       </nav>
     </div>
@@ -55,14 +62,72 @@ const NavBarInner = () => (
 );
 
 const NavBar = () => {
-  if (typeof document === 'undefined') return null;
+  if (typeof document === "undefined") return null;
   return ReactDOM.createPortal(<NavBarInner />, document.body);
+};
+const ScrollToTop = () => {
+  if (typeof document === "undefined") return null;
+  return ReactDOM.createPortal(<ScrollToTopInner />, document.body);
+};
+
+const ScrollToTopInner = () => {
+  const [visible, setVisible] = useState(false);
+
+  const handleScrollToTop = () => {
+    gsap.to(window, {
+      duration: 1,
+      ease: "power2.inOut",
+      scrollTo: { y: 0 },
+    });
+  };
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !("IntersectionObserver" in window))
+      return;
+    const target = document.querySelector("#learn-more");
+    if (!target) return;
+
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          setVisible(entry.isIntersecting);
+        });
+      },
+      { root: null, threshold: 0.1 }
+    );
+
+    obs.observe(target);
+    return () => obs.disconnect();
+  }, []);
+
+  if (!visible) return null;
+
+  return (
+    <div className="fixed bottom-4 right-4 z-50 w-[50px] h-[50px] text-2xl text-center p-4 rounded-full bg-white/6 bg-opacity-60">
+      <div className="text-white mt-[-3px]">
+        <button onClick={handleScrollToTop}>^</button>
+      </div>
+    </div>
+  );
 };
 
 function LandingScreen() {
+  useEffect(() => {
+    gsap.fromTo(
+      ".nav-bar-main-box",
+      { y: -100, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1, ease: "power2.out" }
+    );
+    gsap.fromTo(
+      ".nav-bar-main-box a",
+      { y: -100, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1, ease: "power2.out", stagger: 0.1 }
+    );
+  }, []);
   return (
     <>
       <NavBar />
+
       <main>
         <div className="min-h-screen flex items-center justify-center relative overflow-hidden">
           {/* Decorative background model (subtle, behind content) */}
@@ -461,7 +526,7 @@ fetch('/chat/sendmessage', {
               <div className="md:col-span-2 flex items-center gap-4">
                 <button
                   type="submit"
-                  className="px-5 py-3 rounded bg-white text-black font-semibold"
+                  className="px-5 py-3 rounded-2xl bg-white text-black font-semibold"
                 >
                   Send message
                 </button>
@@ -511,6 +576,7 @@ fetch('/chat/sendmessage', {
           </div>
         </div>
       </footer>
+      <ScrollToTop />
     </>
   );
 }
