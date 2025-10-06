@@ -33,13 +33,12 @@ const NavBar = () => {
         style={{
           position: 'fixed',
           top: 12,
+          width:'fit-content',
+          height:'fit-content',
           left: 12,
           zIndex: 9999,
           padding: '8px 12px',
           borderRadius: 20,
-          background: 'linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01))',
-          boxShadow: '0 6px 20px rgba(2,6,23,0.5)',
-          border: '1px solid rgba(255,255,255,0.04)'
         }}
       >
   <div className="navbar-title" style={{ position: "relative", display: 'flex', alignItems: 'center', gap: 8, paddingLeft: 4 }}>
