@@ -19,7 +19,7 @@ const{isAuthuser}=useAuthStore();
     const smoother = ScrollSmoother.create({
       wrapper: "#smooth-wrapper",
       content: "#smooth-content",
-      smooth: 3,
+      smooth: 1.5,
       effects: true,
       });
 

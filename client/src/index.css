@@ -9,7 +9,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: rgba(0, 0, 0, 0.904);
-  background-image: url('./model.png');
   background-size: 680px;
   background-repeat: no-repeat;
   background-position: center;
