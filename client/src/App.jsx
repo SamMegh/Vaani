@@ -13,7 +13,7 @@ import LandingScreen from "./screen/landingScreen";
 gsap.registerPlugin(ScrollSmoother, ScrollTrigger);
 
 function App() {
-const{isAuthuser}=useAuthStore();
+  const { isAuthuser, isCheckauth, checkauth } = useAuthStore();
 
   useEffect(() => {
     const smoother = ScrollSmoother.create({
@@ -21,32 +21,38 @@ const{isAuthuser}=useAuthStore();
       content: "#smooth-content",
       smooth: 1.5,
       effects: true,
-      });
+    });
 
     return () => smoother.kill();
   }, []);
-
+  useEffect(() => {
+    checkauth();
+  }, []);
+  //   if(isCheckauth&& !isAuthuser)return(
+  //   <div className='main-loading-icon'>
+  //     <Loader size={30}/>
+  //     </div>
+  // )
   return (
     <div id="smooth-wrapper" className="overflow-x-hidden">
-
-          <div id="smooth-content">
-            <BrowserRouter>
-                <Routes>
-                    <Route
-                        path="/"
-                        element={isAuthuser ? <HomeScreen /> : <LandingScreen />}
-                    />
-                    <Route
-                        path="/login"
-                        element={!isAuthuser ? <LoginScreen /> : <Navigate to="/" />}
-                    />
-                    <Route
-                        path="/signup"
-                        element={!isAuthuser ? <SignUpScreen /> : <Navigate to="/" />}
-                    />
-                </Routes>
-            </BrowserRouter>
-        </div>
+      <div id="smooth-content">
+        <BrowserRouter>
+          <Routes>
+            <Route
+              path="/"
+              element={isAuthuser ? <HomeScreen /> : <LandingScreen />}
+            />
+            <Route
+              path="/login"
+              element={!isAuthuser ? <LoginScreen /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/signup"
+              element={!isAuthuser ? <SignUpScreen /> : <Navigate to="/" />}
+            />
+          </Routes>
+        </BrowserRouter>
+      </div>
     </div>
   );
 }
