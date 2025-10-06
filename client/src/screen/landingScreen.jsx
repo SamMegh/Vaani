@@ -112,8 +112,8 @@ function LandingScreen() {
     <>
       <NavBar />
 
-      <main>
-        <div className="min-h-screen flex items-center justify-center relative overflow-hidden">
+      <main >
+        <div className="min-h-screen mt-[20px] flex items-center justify-center relative overflow-hidden">
           {/* Decorative background model (subtle, behind content) */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
             <img

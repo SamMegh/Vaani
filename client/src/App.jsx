@@ -9,6 +9,8 @@ import LoginScreen from "./screen/LoginScreen";
 import SignUpScreen from "./screen/SignUpScreen";
 import { useAuthStore } from "./store/useAuthStore";
 import LandingScreen from "./screen/landingScreen";
+import OnLoder from "./components/OnLoder";
+import './App.css'
 
 gsap.registerPlugin(ScrollSmoother, ScrollTrigger);
 
@@ -25,17 +27,17 @@ function App() {
 
     return () => smoother.kill();
   }, []);
-  useEffect(() => {
+    useEffect(() => {
     checkauth();
-  }, []);
-  //   if(isCheckauth&& !isAuthuser)return(
-  //   <div className='main-loading-icon'>
-  //     <Loader size={30}/>
-  //     </div>
-  // )
+    
+  }, [checkauth]);
+if(isCheckauth&& !isAuthuser)return(
+  <div className='main-loading-icon'>
+    <OnLoder size={30}/>
+    </div>
+)
   return (
-    <div id="smooth-wrapper" className="overflow-x-hidden">
-      <div id="smooth-content">
+
         <BrowserRouter>
           <Routes>
             <Route
@@ -52,8 +54,7 @@ function App() {
             />
           </Routes>
         </BrowserRouter>
-      </div>
-    </div>
+      
   );
 }
 
