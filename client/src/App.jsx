@@ -8,6 +8,7 @@ import HomeScreen from "./screen/HomeScreen";
 import LoginScreen from "./screen/LoginScreen";
 import SignUpScreen from "./screen/SignUpScreen";
 import { useAuthStore } from "./store/useAuthStore";
+import LandingScreen from "./screen/landingScreen";
 
 gsap.registerPlugin(ScrollSmoother, ScrollTrigger);
 
@@ -33,7 +34,7 @@ const{isAuthuser}=useAuthStore();
                 <Routes>
                     <Route
                         path="/"
-                        element={isAuthuser ? <HomeScreen /> : <Navigate to="/login" />}
+                        element={isAuthuser ? <HomeScreen /> : <LandingScreen />}
                     />
                     <Route
                         path="/login"
