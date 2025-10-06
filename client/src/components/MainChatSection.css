@@ -1,0 +1,72 @@
+/* MainChatSection.css - modern chat UI styles */
+:root{
+  --bg:#0f1724;
+  --panel:#0b1220;
+  --accent:#6ee7b7;
+  --muted:#94a3b8;
+  --me:#1f2937;
+  --assistant:#0b1220;
+}
+
+.chat-main{
+  display:flex;
+  flex-direction:column;
+  height:100%;
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent), var(--bg);
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 6px 24px rgba(2,6,23,0.6);
+}
+
+.chat-header{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px 18px;
+  background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-bottom:1px solid rgba(255,255,255,0.03);
+}
+.chat-header h2{margin:0;color:var(--accent);font-size:16px}
+.chat-header .sub{color:var(--muted);font-size:12px}
+
+.message-body{
+  flex:1 1 auto;
+  padding:18px;
+  overflow:auto;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  scroll-behavior:smooth;
+}
+
+.messages-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
+.message-item{display:flex;gap:12px;align-items:flex-end;max-width:80%;}
+.message-item.you{align-self:flex-end;flex-direction:row-reverse}
+.message-item.other{align-self:flex-start}
+
+.avatar{
+  width:40px;height:40px;border-radius:50%;flex:0 0 40px;background:linear-gradient(135deg,#334155,#0ea5a6);display:grid;place-items:center;color:#fff;font-weight:700;font-size:14px
+}
+
+.bubble{
+  padding:12px 14px;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));color:#e6eef8;box-shadow:0 4px 18px rgba(2,6,23,0.4);position:relative;white-space:pre-wrap;word-break:break-word;font-size:14px;line-height:1.35;
+}
+.message-item.you .bubble{background:linear-gradient(180deg,#133b2b,#0b2b22);color:#d1fae5;border-bottom-right-radius:6px}
+.message-item.other .bubble{background:linear-gradient(180deg,#071029,#0b1220);color:#cfe8ff;border-bottom-left-radius:6px}
+
+.meta{font-size:11px;color:var(--muted);margin-top:6px}
+
+.message-input{padding:12px 14px;background:linear-gradient(90deg, rgba(255,255,255,0.01), transparent);border-top:1px solid rgba(255,255,255,0.02)}
+.chat-input-wrapper{display:flex;align-items:flex-end;gap:10px}
+.styles-input{flex:1;border-radius:12px;padding:10px 12px;background:var(--panel);border:1px solid rgba(255,255,255,0.02);color:#e6eef8;resize:none;min-height:46px;max-height:140px;outline:none}
+.styles-icon{color:var(--accent);cursor:pointer;font-size:20px}
+
+/* small screen tweaks */
+@media (max-width:640px){
+  .avatar{width:36px;height:36px}
+  .message-item{max-width:88%}
+}
+
+/* subtle appear animation */
+.message-item{opacity:0;transform:translateY(6px);animation:pop .28s ease forwards}
+@keyframes pop{to{opacity:1;transform:none}}

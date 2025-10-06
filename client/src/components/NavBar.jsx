@@ -28,13 +28,34 @@ const NavBar = () => {
   }, [dialogOpen]);
   return (
     <div>
-      <nav className="navbar">
-        <div className="navbar-title" style={{ position: "relative" }}>
+      <nav
+        className="navbar"
+        style={{
+          position: 'fixed',
+          top: 12,
+          left: 12,
+          zIndex: 9999,
+          padding: '8px 12px',
+          borderRadius: 20,
+          background: 'linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01))',
+          boxShadow: '0 6px 20px rgba(2,6,23,0.5)',
+          border: '1px solid rgba(255,255,255,0.04)'
+        }}
+      >
+  <div className="navbar-title" style={{ position: "relative", display: 'flex', alignItems: 'center', gap: 8, paddingLeft: 4 }}>
           <img
-            className="navbar-logo"
-            src="../src/assets/images2/dragon_7.jpg"
+            className="navbar-logo h-[100px]"
+            src="./model.png"
             alt="Site Logo"
             onClick={openDialog}
+            style={{
+              width: 56,
+              height: 56,
+              objectFit: 'cover',
+              borderRadius: 14,
+              cursor: 'pointer',
+              border: '1px solid rgba(255,255,255,0.06)'
+            }}
           />
           {dialogOpen && (
             <div

@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faWaveSquare, faShareSquare, faPrint } from "@fortawesome/free-solid-svg-icons";
 import ShareChatPopup from "./ShareChatPopup";
 import OnLoader from "../components/OnLoder.jsx";
+import "./MainChatSection.css";
 
 const MainChatSection = () => {
   const { messages, sendMessage, currentRoom, realTimeConvertiate, deleteRealTimeConvertiate, getMessageLoader } = useChatStore();
@@ -42,23 +43,30 @@ const MainChatSection = () => {
 
   return (
     <div className="chat-main">
+      <div className="chat-header">
+        <div style={{display:'flex',flexDirection:'column'}}>
+          <h2>{currentRoom?.name || 'Chats'}</h2>
+          <div className="sub">{messages.length} messages • {currentRoom?._id || 'room'}</div>
+        </div>
+      </div>
+
       <div className="message-body" ref={messageBodyRef}>
-        <h1 className="message-title">Chats</h1>
-        {messages.map((msg, index) => (
-          <li
-            key={msg._id || index}
-            className={
-              msg.senderid === myId
-                ? "itsMeClass"
-                : msg.senderid === "PrivateAssistantGroq"
-                ? "assistantclass"
-                : "otherUserClass"
-            }
-          >
-            <span className="msg-rol">{msg.senderid === myId ? "You" : msg.name}</span>
-            <span className="msg-prompt">{msg.message}</span>
-          </li>
-        ))}
+        <ul className="messages-list">
+          {messages.map((m, index) => {
+            const isMe = m.senderid === myId;
+            const cls = isMe ? 'you message-item' : 'other message-item';
+            const initials = (m.name || (isMe? 'You' : 'U')).charAt(0).toUpperCase();
+            return (
+              <li key={m._id || index} className={cls}>
+                <div className="avatar">{initials}</div>
+                <div>
+                  <div className="bubble">{m.message}</div>
+                  <div className="meta">{isMe ? 'You' : m.name} • {new Date(m.createdAt || Date.now()).toLocaleTimeString()}</div>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
       </div>
 
       <div className="message-input">
@@ -112,11 +120,11 @@ const MainChatSection = () => {
                 </span>
               </div>
             )}
-      {showSharePopup && (
-        <ShareChatPopup url={window.location.href + "?chatId=" + (currentRoom?._id || "")}
-          onClose={() => setShowSharePopup(false)} />
-      )}
+            {showSharePopup && (
+              <ShareChatPopup url={window.location.href + "?chatId=" + (currentRoom?._id || "")} onClose={() => setShowSharePopup(false)} />
+            )}
           </div>
+
           <textarea
             placeholder="Ask anything"
             value={msg}
