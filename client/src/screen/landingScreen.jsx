@@ -5,15 +5,9 @@ import gsap from "gsap";
 const NavBarInner = () => (
   <header className="fixed inset-x-0 top-0 z-[9999] py-3">
     <div className="max-w-7xl mx-auto px-6">
-      <nav className="nav-bar-main-box flex items-center justify-between p-3 rounded-2xl bg-white/6 bg-opacity-60 px-8 backdrop-blur-sm overflow-hidden">
-        {/* Left / brand area (optional) */}
-        <div className="flex items-center gap-4">
-          <div className="text-white font-bold">Vaani</div>
-          <div className="hidden sm:block text-white/80">Build better conversations</div>
-        </div>
-
+      <nav className="nav-bar-main-box flex items-center justify-between  overflow-hidden">
         {/* Center links */}
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden w-fit bg-white/6 bg-opacity-60 p-3 rounded-2xl px-8 backdrop-blur-sm  md:flex items-center gap-6">
           <a className="text-white/90 hover:underline">Get started</a>
           <a
             href="https://github.com/SamMegh/Vaani/blob/main/docs/PROJECT_DOCS.md"
@@ -31,10 +25,6 @@ const NavBarInner = () => (
           >
             GitHub
           </a>
-        </div>
-
-        {/* Right: Contact + Login */}
-        <div className="flex items-center gap-4">
           <a
             onClick={(e) => {
               e.preventDefault();
@@ -49,12 +39,6 @@ const NavBarInner = () => (
           >
             Contact
           </a>
-
-          <a href="/login" className="text-white/90 border border-white/10 px-3 py-2 rounded-md">Login</a>
-
-          <div className="md:hidden">
-            <a href="" className="text-white/90 px-3 py-2 bg-white/6 rounded">Start</a>
-          </div>
         </div>
       </nav>
     </div>
