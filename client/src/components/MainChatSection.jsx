@@ -4,6 +4,7 @@ import { useAuthStore } from "../store/useAuthStore.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faWaveSquare, faShareSquare, faPrint } from "@fortawesome/free-solid-svg-icons";
 import ShareChatPopup from "./ShareChatPopup";
+import PrintChatPopup from "./PrintChatPopup";
 import OnLoader from "../components/OnLoder.jsx";
 
 const MainChatSection = () => {
@@ -14,6 +15,7 @@ const MainChatSection = () => {
   const [msg, setMsg] = useState("");
   const [showSharePrint, setShowSharePrint] = useState(false);
   const [showSharePopup, setShowSharePopup] = useState(false);
+  const [showPrintPopup, setShowPrintPopup] = useState(false);
   const messageBodyRef = useRef(null);
   const lastYRef = useRef(0);
 
@@ -106,7 +108,7 @@ const MainChatSection = () => {
                     title="Print chat"
                     onClick={() => {
                       setShowSharePrint(false);
-                      alert("To be updated soon");
+                      setShowPrintPopup(true);
                     }}
                   />
                 </span>
@@ -115,6 +117,9 @@ const MainChatSection = () => {
       {showSharePopup && (
         <ShareChatPopup url={window.location.href + "?chatId=" + (currentRoom?._id || "")}
           onClose={() => setShowSharePopup(false)} />
+      )}
+      {showPrintPopup && (
+        <PrintChatPopup onClose={() => setShowPrintPopup(false)} />
       )}
           </div>
           <textarea
