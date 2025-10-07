@@ -34,24 +34,27 @@ const ChatHistory = () => {
   // GSAP animation effect
   useEffect(() => {
     if (sidebarRef.current) {
-      // Set initial position
-      gsap.set(sidebarRef.current, { x: "110%" });
-      
-      if (isOpen) {
-        gsap.to(sidebarRef.current, {
-          x: 0,
-          duration: 0.5,
-          ease: "back.out(1.7)"
-        });
+      if (isMobile) {
+        // Mobile: animate based on isOpen state
+        if (isOpen) {
+          gsap.to(sidebarRef.current, {
+            x: 0,
+            duration: 0.5,
+            ease: "back.out(1.7)"
+          });
+        } else {
+          gsap.to(sidebarRef.current, {
+            x: "110%",
+            duration: 0.3,
+            ease: "power2.in"
+          });
+        }
       } else {
-        gsap.to(sidebarRef.current, {
-          x: "110%",
-          duration: 0.3,
-          ease: "power2.in"
-        });
+        // Desktop: always visible (x: 0)
+        gsap.set(sidebarRef.current, { x: 0 });
       }
     }
-  }, [isOpen]);
+  }, [isOpen, isMobile]);
 
   useEffect(() => {
     getMessageCollection();
@@ -75,7 +78,6 @@ const ChatHistory = () => {
 
   <aside
         ref={sidebarRef}
-        style={{ transform: 'translateX(110%)' }}
         className={`fixed right-4 top-16 bottom-6 z-30 rounded-2xl bg-gradient-to-br from-white/6 to-white/4 border border-white/10 backdrop-blur-sm p-3 flex flex-col gap-3 shadow-xl ${
           collapsed ? "w-20 sm:w-20" : "w-72 sm:w-80"
         } transition-all duration-300 ease-in-out overflow-hidden`}
