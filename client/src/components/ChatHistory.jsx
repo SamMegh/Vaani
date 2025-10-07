@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { FiMenu, FiMessageSquare } from "react-icons/fi";
-// eslint-disable-next-line no-unused-vars
-import { motion } from "framer-motion";
+import { gsap } from "gsap";
 import { useChatStore } from "../store/useChatStore";
 
 const ChatHistory = () => {
@@ -13,9 +12,46 @@ const ChatHistory = () => {
     createMsgCollection,
   } = useChatStore();
 
-  const [isOpen, setIsOpen] = useState(true);
-  const [collapsed, setCollapsed] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const [active, setActive] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const sidebarRef = useRef(null);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640);
+      if (window.innerWidth < 640) {
+        setIsOpen(false);
+      }
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // GSAP animation effect
+  useEffect(() => {
+    if (sidebarRef.current) {
+      // Set initial position
+      gsap.set(sidebarRef.current, { x: "110%" });
+      
+      if (isOpen) {
+        gsap.to(sidebarRef.current, {
+          x: 0,
+          duration: 0.5,
+          ease: "back.out(1.7)"
+        });
+      } else {
+        gsap.to(sidebarRef.current, {
+          x: "110%",
+          duration: 0.3,
+          ease: "power2.in"
+        });
+      }
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     getMessageCollection();
@@ -25,18 +61,21 @@ const ChatHistory = () => {
     <div className="relative">
       {/* Mobile toggle (floating) */}
       <button
-        onClick={() => setIsOpen((v) => !v)}
+        onClick={() => {  
+          if (isMobile) {
+            setIsOpen((o) => !o); 
+            setCollapsed(false);
+          }
+        }}
         className="sm:hidden fixed right-4 top-4 z-40 bg-white text-black p-2 rounded-lg shadow-lg"
         aria-label="Open chats"
       >
         <FiMenu size={18} />
       </button>
 
-  <motion.aside
-        initial={{ x: "110%" }}
-        animate={{ x: isOpen ? 0 : "110%" }}
-        transition={{ type: "spring", stiffness: 300, damping: 28 }}
-        layout
+  <aside
+        ref={sidebarRef}
+        style={{ transform: 'translateX(110%)' }}
         className={`fixed right-4 top-16 bottom-6 z-30 rounded-2xl bg-gradient-to-br from-white/6 to-white/4 border border-white/10 backdrop-blur-sm p-3 flex flex-col gap-3 shadow-xl ${
           collapsed ? "w-20 sm:w-20" : "w-72 sm:w-80"
         } transition-all duration-300 ease-in-out overflow-hidden`}
@@ -54,7 +93,7 @@ const ChatHistory = () => {
             )}
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="hidden sm:flex items-center gap-2">
             <button
               onClick={() => setCollapsed((c) => !c)}
                 className="p-2 rounded-md bg-white/10 text-white hover:bg-white/20"
@@ -69,14 +108,23 @@ const ChatHistory = () => {
           <div className="mb-3 px-1">
             {!collapsed ? (
               <button
-                onClick={createMsgCollection}
+                onClick={() => { 
+                  setIsOpen(false);
+                  setCollapsed(true);
+                  createMsgCollection();
+                }}
                 className="w-full py-2 rounded-lg bg-white text-black font-semibold shadow-md"
               >
                 New chat
               </button>
             ) : (
               <button
-                onClick={createMsgCollection}
+                onClick={() => {
+                  createMsgCollection();
+                  if (isMobile) {
+                    setIsOpen(false);
+                  }
+                }}
                 className="w-full p-2 rounded-lg bg-white text-black font-semibold shadow-md flex items-center justify-center"
                 title="New chat"
               >
@@ -89,8 +137,13 @@ const ChatHistory = () => {
             {chatRooms.map((item, idx) => (
               <button
                 key={item._id || idx}
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault();
                   setCurrentRoom(item._id);
+                  setCollapsed(true);
+                  if (isMobile) {
+                    setIsOpen(false);
+                  }
                   setActive(item);
                   getMessage();
                 }}
@@ -114,7 +167,7 @@ const ChatHistory = () => {
         <div className="mt-2 px-1">
           <a href="#" className="text-xs text-white/70 underline">Upgrade plan</a>
         </div>
-      </motion.aside>
+      </aside>
     </div>
   );
 };

@@ -124,8 +124,9 @@ const MainChatSection = () => {
             className="styles-input"
             minLength={1}
             rows={2}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" && e.shiftKey) {
+            onKeyDown={e => {
+              // Ctrl+Enter (or Cmd+Enter on Mac) sends the message
+              if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
                 e.preventDefault();
                 handleSend();
               }
