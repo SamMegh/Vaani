@@ -39,7 +39,6 @@ MONGODB_URL=mongodb+srv://${MONGODB_USER}:${MONGODB_PASS}@your-cluster.mongodb.n
 |----------|-------------|---------|
 | `Port` | Backend server port | `8080` |
 | `CLIENTNAME` | Frontend client URL | `http://localhost:5173` |
-| `GoogleGeminiAPI` | Google Gemini API key | Get from [Google AI Studio](https://aistudio.google.com/) |
 | `GROQ_API_KEY` | Groq API key for LLM inference | Get from [Groq Console](https://console.groq.com/) |
 | `JWT_SECRET` | Secret key for JWT token generation | Any secure random string |
 | `MONGODB_USER` | MongoDB username | Your MongoDB user |
