@@ -21,7 +21,6 @@ Port=8080
 CLIENTNAME=http://localhost:5173
 
 # AI Services API Keys
-GoogleGeminiAPI=your_google_gemini_api_key
 GROQ_API_KEY=your_groq_api_key
 
 # Authentication
