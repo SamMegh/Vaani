@@ -1,6 +1,6 @@
 import axios from 'axios';
 const Instance=axios.create({
-    baseURL:'http://localhost:8080/',
+    baseURL:'https://vaani-hsph.onrender.com/',
     withCredentials: true,
 })
 
