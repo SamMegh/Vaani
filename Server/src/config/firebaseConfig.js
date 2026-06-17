@@ -1,7 +1,9 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import dontenv from "dotenv";
+dontenv.config();
 const firebaseConfig = {
-  apiKey: "AIzaSyCiqsBEvkk0AdmpXsx44F9mD8jmJnApVzA",
+  apiKey: process.env.FIREBASE_API_KEY,
   authDomain: "chatbot-6b78c.firebaseapp.com",
   projectId: "chatbot-6b78c",
   storageBucket: "chatbot-6b78c.firebasestorage.app",
